@@ -1,6 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>花と、月1の深呼吸</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+<style>
+  :root{
+    --bg: #faf6ee;
+    --text: #453b30;
+    --text-soft: #8a7f6f;
+    --beige: #f2ecdf;
+    --beige-line: #e3d9c4;
+    --line: #e6ded0;
+    --olive: #7c8768;
+    --olive-dark: #626d54;
+    --terracotta: #c99b7a;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.02em;
+  }
+
+  body{
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(124,135,104,0.04), transparent 40%),
+      radial-gradient(circle at 85% 60%, rgba(201,155,122,0.05), transparent 45%);
+  }
+
+  header{
+    padding: 48px 24px 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before{
+    content: '';
+    position: absolute;
+    top: -20px; left: -20px;
+    width: 140px; height: 140px;
+    opacity: 0.35;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><g fill='none' stroke='%23453b30' stroke-width='1.2'><path d='M100 40 C120 60 120 90 100 110 C80 90 80 60 100 40Z'/><path d='M100 40 C80 55 60 55 45 40'/><path d='M100 110 C110 130 130 140 150 135'/><circle cx='100' cy='75' r='6'/></g></svg>") no-repeat center / contain;
+  }
+
+  header .brand{
+    font-size: 12px; letter-spacing: 0.25em; color: var(--olive-dark);
+    margin-bottom: 18px; position: relative;
+  }
+
+  header h1{
+    font-family: 'Shippori Mincho', serif; font-weight: 500;
+    font-size: 23px; margin: 0 0 10px; letter-spacing: 0.1em;
+    color: var(--text); position: relative; line-height: 1.5;
+  }
+
+  header .greeting{
+    font-size: 13px; color: var(--text-soft); font-weight: 300; position: relative;
+  }
+  header .greeting .name{ color: var(--text); font-weight: 500; margin: 0 2px; }
+
+  .container{ max-width: 480px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  .state-message{
+    text-align: center; padding: 100px 20px; color: var(--text-soft);
+    font-size: 13px; line-height: 1.9;
+  }
+  .state-message .loader{
+    width: 22px; height: 22px; margin: 0 auto 24px;
+    border: 1px solid var(--line); border-top-color: var(--olive);
+    border-radius: 50%; animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  .sample-banner{
+    background: #ffffff;
+    border: 1px solid var(--terracotta);
+    border-radius: 4px;
+    padding: 22px 20px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .sample-banner .label{
+    font-size: 10px; letter-spacing: 0.2em; color: var(--terracotta);
+    margin-bottom: 10px; display: block;
+  }
+  .sample-banner .message{
+    font-size: 13px; line-height: 1.9; color: var(--text); font-weight: 300;
+  }
+
+  .id-register-box{
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--beige-line);
+  }
+  .id-register-box .instruction{
+    font-size: 11.5px; line-height: 1.8; color: var(--text-soft);
+    margin-bottom: 14px; font-weight: 300;
+  }
+  .id-value{
+    display: block;
+    font-size: 11px;
+    background: var(--beige);
+    border-radius: 4px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    word-break: break-all;
+    color: var(--text-soft);
+    letter-spacing: 0.02em;
+  }
+  .copy-id-btn{
+    display: inline-block;
+    background: var(--olive);
+    color: #ffffff;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    padding: 10px 24px;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+  }
+  .copy-id-btn.copied{
+    background: var(--olive-dark);
+  }
+
+  .section-heading{ display: flex; align-items: center; gap: 14px; margin: 8px 0 24px; }
+  .section-heading .en{ font-size: 10px; letter-spacing: 0.25em; color: var(--olive-dark); white-space: nowrap; }
+  .section-heading .rule{ flex: 1; height: 1px; background: var(--line); }
+
+  .teaser-section{ margin-bottom: 64px; }
+  .teaser-section.is-empty{ display: none; }
+  .teaser-lead{
+    font-size: 12px; color: var(--text-soft); line-height: 1.9;
+    margin-bottom: 28px; font-weight: 300;
+  }
+  .teaser-scroll{
+    display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px;
+    margin: 0 -20px; padding-left: 20px; padding-right: 20px;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  }
+  .teaser-scroll::-webkit-scrollbar{ display: none; }
+
+  .teaser-card{
+    flex: 0 0 auto; width: 200px; scroll-snap-align: start;
+    border-radius: 4px; padding: 22px 18px; position: relative; overflow: hidden;
+  }
+  .teaser-card.is-confirmed{ background: #ffffff; border: 1px solid var(--beige-line); }
+  .teaser-card.is-teaser{ background: var(--beige); border: 1px solid transparent; }
+
+  .teaser-vol{ font-size: 10px; letter-spacing: 0.15em; color: var(--text-soft); margin-bottom: 10px; }
+  .teaser-month{ font-size: 11px; letter-spacing: 0.1em; color: var(--terracotta); margin-bottom: 14px; }
+  .teaser-title{
+    font-family: 'Shippori Mincho', serif; font-size: 15.5px; line-height: 1.6;
+    font-weight: 500; margin-bottom: 16px; min-height: 48px; color: var(--text);
+  }
+  .teaser-status{ font-size: 9.5px; letter-spacing: 0.12em; padding: 4px 10px; border-radius: 2px; display: inline-block; }
+  .teaser-status.confirmed{ background: var(--olive); color: #ffffff; }
+  .teaser-status.teaser{ background: transparent; border: 1px solid var(--terracotta); color: var(--terracotta); }
+
+  .album-card{ margin-bottom: 56px; }
+  .album-card:not(:last-child){ padding-bottom: 48px; border-bottom: 1px solid var(--line); }
+  .album-meta{ display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+  .album-vol{
+    font-size: 10.5px; letter-spacing: 0.12em; color: var(--olive-dark);
+    background: rgba(124,135,104,0.1); padding: 3px 9px; border-radius: 2px;
+  }
+  .album-date{ font-size: 11px; letter-spacing: 0.15em; color: var(--text-soft); }
+  .album-title{
+    font-family: 'Shippori Mincho', serif; font-size: 18px; font-weight: 500;
+    margin: 4px 0 20px; letter-spacing: 0.05em; line-height: 1.5; color: var(--text);
+  }
+  .album-photo-wrap{
+    width: 100%; overflow: hidden; border-radius: 4px; background: #eee;
+    margin-bottom: 20px; border: 1px solid var(--beige-line);
+  }
+  .album-photo-wrap img{ display: block; width: 100%; height: auto; object-fit: cover; }
+  .flower-tags{ display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .flower-tag{
+    font-size: 11px; padding: 5px 12px; border: 1px solid var(--olive);
+    border-radius: 2px; color: var(--olive-dark); letter-spacing: 0.06em; background: #ffffff;
+  }
+  .ai-comment-box{ background: var(--beige); border-radius: 4px; padding: 22px 20px; }
+  .ai-comment-label{ font-size: 10px; letter-spacing: 0.2em; color: var(--terracotta); margin-bottom: 10px; display: block; }
+  .ai-comment-text{ font-size: 12.5px; line-height: 1.8; color: var(--text); font-weight: 300; white-space: pre-wrap; }
+
+  footer{ text-align: center; padding: 40px 20px 60px; font-size: 10px; letter-spacing: 0.15em; color: var(--text-soft); }
+
+  @media (min-width: 520px){
+    header h1{ font-size: 25px; }
+    .album-title{ font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">HANA TO TSUKI ICHI NO SHINKOKYU</div>
+  <h1>花と、月1の深呼吸</h1>
+  <div class="greeting" id="greeting">読み込み中です&hellip;</div>
+</header>
+
+<div class="container" id="container">
+  <div class="state-message" id="stateMessage">
+    <div class="loader"></div>
+    アルバムを準備しております&hellip;
+  </div>
+</div>
+
+<footer>&mdash; あなただけの、花のある時間の記録 &mdash;</footer>
+
 <script>
   var LIFF_ID = '2010604310-qrcPhB5E';
-  // ↓↓↓ ★【重要】先ほど新デプロイしてコピーしたGASのURLをここに貼り付けてください↓↓↓
+  
+  // ↓↓↓ ★ここにあなたのGASのウェブアプリURLを上書きしてください ↓↓↓
   var GAS_API_URL = '★あなたのGASのウェブアプリURLをここに貼り付け★';
   
   var currentUserId = ''; // ログイン中ユーザーのIDを保持
@@ -19,11 +244,11 @@
         if (!profile) return;
         currentUserId = profile.userId;
 
-        // 【ここを変更】fetchを使ってGASにデータをリクエストする
+        // fetchを使ってGASにデータをリクエスト
         return fetch(GAS_API_URL, {
           method: 'POST',
           body: JSON.stringify({ lineUserId: profile.userId }),
-          headers: { 'Content-Type': 'text/plain' } // GASのdoPostを受けるための設定
+          headers: { 'Content-Type': 'text/plain' }
         });
       })
       .then(function (response) {
@@ -177,3 +402,6 @@
   }
   function escapeAttr(str) { return escapeHtml(str); }
 </script>
+
+</body>
+</html>

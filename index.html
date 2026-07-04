@@ -167,7 +167,7 @@
     done();
   }
 
-  fn function showError(message) {
+  function showError(message) {
     document.getElementById('greeting').textContent = '';
     document.getElementById('container').innerHTML = '<div class="state-message">' + escapeHtml(message) + '</div>';
   }

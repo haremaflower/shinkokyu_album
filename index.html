@@ -1,0 +1,179 @@
+<script>
+  var LIFF_ID = '2010604310-qrcPhB5E';
+  // ↓↓↓ ★【重要】先ほど新デプロイしてコピーしたGASのURLをここに貼り付けてください↓↓↓
+  var GAS_API_URL = '★あなたのGASのウェブアプリURLをここに貼り付け★';
+  
+  var currentUserId = ''; // ログイン中ユーザーのIDを保持
+
+  document.addEventListener('DOMContentLoaded', function () {
+    initializeLiff();
+  });
+
+  function initializeLiff() {
+    liff.init({ liffId: LIFF_ID })
+      .then(function () {
+        if (!liff.isLoggedIn()) { liff.login(); return; }
+        return liff.getProfile();
+      })
+      .then(function (profile) {
+        if (!profile) return;
+        currentUserId = profile.userId;
+
+        // 【ここを変更】fetchを使ってGASにデータをリクエストする
+        return fetch(GAS_API_URL, {
+          method: 'POST',
+          body: JSON.stringify({ lineUserId: profile.userId }),
+          headers: { 'Content-Type': 'text/plain' } // GASのdoPostを受けるための設定
+        });
+      })
+      .then(function (response) {
+        if (!response) return;
+        return response.json();
+      })
+      .then(function (data) {
+        if (data) {
+          renderPage(data);
+        }
+      })
+      .catch(function (err) {
+        showError('ログイン情報の取得または通信に失敗しました。時間をおいて再度お試しください。');
+        console.error(err);
+      });
+  }
+
+  function renderPage(data) {
+    var greetingEl = document.getElementById('greeting');
+    var containerEl = document.getElementById('container');
+
+    if (data.error) { showError(data.error); return; }
+
+    if (data.isSample) {
+      greetingEl.textContent = 'ようこそ、体験ページへ。';
+    } else {
+      greetingEl.innerHTML = data.name
+        ? '<span class="name">' + escapeHtml(data.name) + '様</span>、いつもご利用ありがとうございます。'
+        : 'ご来店ありがとうございます。';
+    }
+
+    var html = '';
+
+    if (data.isSample) {
+      html += '<div class="sample-banner">' +
+        '<span class="label">SAMPLE</span>' +
+        '<div class="message">これは体験サンプルです。<br>実際にワークショップにご参加いただくと、<br>あなたの一枝もこんな風に記録として残ります。</div>' +
+        '<div class="id-register-box">' +
+          '<div class="instruction">常連さんですでにご登録をお願いされた方は、<br>下のボタンでIDをコピーして、<br>そのまま公式LINEのトーク画面に貼って送ってください。</div>' +
+          '<span class="id-value" id="idValue">' + escapeHtml(currentUserId) + '</span>' +
+          '<button class="copy-id-btn" id="copyIdBtn" onclick="copyUserId()">IDをコピーする</button>' +
+        '</div>' +
+        '</div>';
+    }
+
+    // ---- 次回以降のテーマ（ティーザー） ----
+    if (data.upcomingThemes && data.upcomingThemes.length > 0) {
+      html += '<div class="teaser-section">' +
+        '<div class="section-heading"><span class="en">UPCOMING THEMES</span><span class="rule"></span></div>' +
+        '<div class="teaser-lead">これから先の季節に、どんな一枝が待っているか。<br>日程が決まる前の、静かな予告編です。</div>' +
+        '<div class="teaser-scroll">' +
+        data.upcomingThemes.map(buildTeaserCard).join('') +
+        '</div></div>';
+    }
+
+    // ---- これまでのアルバム ----
+    html += '<div class="section-heading"><span class="en">ARCHIVE</span><span class="rule"></span></div>';
+
+    if (!data.albums || data.albums.length === 0) {
+      html += '<div class="state-message">まだアルバムが登録されておりません。<br>次回のワークショップをお楽しみに。</div>';
+    } else {
+      html += data.albums.map(buildAlbumCard).join('');
+    }
+
+    containerEl.innerHTML = html;
+  }
+
+  function buildTeaserCard(item) {
+    var isConfirmed = item.status === 'confirmed';
+    var statusLabel = isConfirmed ? '日程確定' : 'テーマ先行公開';
+    var cardClass = isConfirmed ? 'is-confirmed' : 'is-teaser';
+    var statusClass = isConfirmed ? 'confirmed' : 'teaser';
+    return (
+      '<div class="teaser-card ' + cardClass + '">' +
+        '<div class="teaser-vol">' + escapeHtml(item.volNumber) + '</div>' +
+        '<div class="teaser-month">' + escapeHtml(item.monthLabel) + '</div>' +
+        '<div class="teaser-title">' + escapeHtml(item.themeTitle) + '</div>' +
+        '<span class="teaser-status ' + statusClass + '">' + statusLabel + '</span>' +
+      '</div>'
+    );
+  }
+
+  function buildAlbumCard(album) {
+    var flowerTagsHtml = (album.flowers || []).map(function (f) {
+      return '<span class="flower-tag">' + escapeHtml(f) + '</span>';
+    }).join('');
+
+    var photoHtml = album.photoUrl
+      ? '<div class="album-photo-wrap"><img src="' + escapeAttr(album.photoUrl) + '" alt="' + escapeAttr(album.themeTitle) + '" loading="lazy"></div>'
+      : '';
+
+    var commentHtml = album.aiComment
+      ? '<div class="ai-comment-box"><span class="ai-comment-label">MESSAGE</span><div class="ai-comment-text">' + escapeHtml(album.aiComment) + '</div></div>'
+      : '';
+
+    return (
+      '<div class="album-card">' +
+        '<div class="album-meta">' +
+          (album.volNumber ? '<span class="album-vol">' + escapeHtml(album.volNumber) + '</span>' : '<span></span>') +
+          '<span class="album-date">' + escapeHtml(album.visitDateFormatted || '') + '</span>' +
+        '</div>' +
+        '<div class="album-title">' + escapeHtml(album.themeTitle || '') + '</div>' +
+        photoHtml +
+        (flowerTagsHtml ? '<div class="flower-tags">' + flowerTagsHtml + '</div>' : '') +
+        commentHtml +
+      '</div>'
+    );
+  }
+
+  function copyUserId() {
+    var btn = document.getElementById('copyIdBtn');
+    var text = currentUserId;
+
+    function markCopied() {
+      btn.textContent = 'コピーしました';
+      btn.classList.add('copied');
+      setTimeout(function () {
+        btn.textContent = 'IDをコピーする';
+        btn.classList.remove('copied');
+      }, 2500);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(markCopied).catch(function () {
+        fallbackCopy(text, markCopied);
+      });
+    } else {
+      fallbackCopy(text, markCopied);
+    }
+  }
+
+  function fallbackCopy(text, done) {
+    var el = document.getElementById('idValue');
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    try { document.execCommand('copy'); } catch (e) { /* noop */ }
+    sel.removeAllRanges();
+    done();
+  }
+
+  fn function showError(message) {
+    document.getElementById('greeting').textContent = '';
+    document.getElementById('container').innerHTML = '<div class="state-message">' + escapeHtml(message) + '</div>';
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function escapeAttr(str) { return escapeHtml(str); }
+</script>

@@ -230,14 +230,28 @@
   
   var currentUserId = ''; // ログイン中ユーザーのIDを保持
 
+  // ページが読み込まれたら実行
   document.addEventListener('DOMContentLoaded', function () {
-    initializeLiff();
+    if (typeof liff === 'undefined') {
+      console.warn('LIFF SDK がまだ読み込まれていないため、1秒後に再試行します。');
+      setTimeout(initializeLiff, 1000);
+    } else {
+      initializeLiff();
+    }
   });
 
   function initializeLiff() {
+    if (typeof liff === 'undefined') {
+      showError('LINEログインの初期化に失敗しました。LINEアプリ内から開くか、ページを再読み込みしてください。');
+      return;
+    }
+
     liff.init({ liffId: LIFF_ID })
       .then(function () {
-        if (!liff.isLoggedIn()) { liff.login(); return; }
+        if (!liff.isLoggedIn()) { 
+          liff.login(); 
+          return; 
+        }
         return liff.getProfile();
       })
       .then(function (profile) {
@@ -261,7 +275,7 @@
         }
       })
       .catch(function (err) {
-        showError('ログイン情報の取得または通信に失敗しました。時間をおいて再度お試しください。');
+        showError('通信に失敗しました。時間をおいて再度お試しください。');
         console.error(err);
       });
   }

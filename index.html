@@ -220,14 +220,14 @@
 </div>
 
 <script>
-  // ★正しいGASのAPI URLに書き換えました
+  // ✅【点検済み】正しいAPI URL
   var API_URL = 'https://script.google.com/macros/s/AKfycbywcBgmXuudaIz09Zj8bxvBvy9tbi0QGsmdNioEb_SNvWT8x789yleolYqEqtHQgzrUYg/exec';
   var currentUserId = '';
   var currentUserName = '';
   var flowerPhotoMap = {};
 
   document.addEventListener('DOMContentLoaded', function () {
-    // ★正しいLIFF IDに修正済み
+    // ✅【点検済み】正しいLIFF ID
     liff.init({ liffId: '2010604310-qrcPhB5E' }).then(function () {
       if (liff.isLoggedIn()) {
         var context = liff.getContext();
@@ -367,4 +367,153 @@
 
         html += '<div class="teaser-card">';
         html += '  <div class="teaser-info">';
-        html += '
+        html += '    <div class="teaser-month">' + escapeHtml(theme.monthLabel) + ' のテーマ</div>';
+        html += '    <div class="teaser-title shippori">' + escapeHtml(theme.themeTitle) + '</div>';
+        
+        // ✅ 日程確定時の表示ロジック
+        if (statusStr === '日程確定' || statusStr.toLowerCase() === 'confirmed') {
+          var dateVal = theme.scheduleDate ? escapeHtml(theme.scheduleDate) : '調整中';
+          html += '    <div class="teaser-date"><span>📅</span> 日程：' + dateVal + '</div>';
+        }
+        html += '  </div>';
+        
+        if (statusStr.toLowerCase() === 'teaser' || statusStr === '予告' || statusStr === '') {
+          html += '  <button class="' + btnClass + '" onclick="handleInterest(this, \'' + escapeJs(theme.volNumber) + '\')">';
+          html += '    <span>♥</span> <span class="btn-label">' + btnText + '</span>';
+          html += '  </button>';
+        }
+        html += '</div>';
+      });
+    }
+
+    // ✅【点検済み】一番下のメッセージ
+    html += '<div style="text-align: center; font-size: 11.5px; color: var(--text-soft); margin: 44px 0 -8px; line-height: 1.6;">あなただけの花と深呼吸した時間を記録するアルバムです</div>';
+
+    // LINE ユーザーID確認セクション
+    html += '<div class="id-section">';
+    html += '  <div class="id-title">LINE ユーザーID</div>';
+    html += '  <div class="id-value" id="idValue">' + escapeHtml(currentUserId) + '</div><br>';
+    html += '  <button class="copy-btn" id="copyIdBtn" onclick="copyUserId()">IDをコピーする</button>';
+    html += '</div>';
+
+    document.getElementById('container').innerHTML = html;
+  }
+
+  function handleInterest(btn, volNumber) {
+    var isActivating = !btn.classList.contains('active');
+    if (isActivating) {
+      btn.classList.add('active');
+      btn.querySelector('.btn-label').textContent = '気付み';
+    } else {
+      btn.classList.remove('active');
+      btn.querySelector('.btn-label').textContent = '気になる';
+    }
+
+    fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'toggleInterest',
+        lineUserId: currentUserId,
+        volNumber: volNumber,
+        name: currentUserName
+      })
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      if (!data.success) {
+        if (isActivating) {
+          btn.classList.remove('active');
+          btn.querySelector('.btn-label').textContent = '気になる';
+        } else {
+          btn.classList.add('active');
+          btn.querySelector('.btn-label').textContent = '気付み';
+        }
+        alert('更新に失敗しました: ' + data.error);
+      }
+    })
+    .catch(function () {
+      alert('通信エラーが発生しました。');
+    });
+  }
+
+  function toggleFlowerPanel(tagEl, flowerName) {
+    var nextEl = tagEl.parentElement.nextElementSibling;
+    if (nextEl && nextEl.classList.contains('flower-panel')) {
+      nextEl.remove();
+      return;
+    }
+
+    var currentPanels = tagEl.parentElement.parentElement.querySelectorAll('.flower-panel');
+    currentPanels.forEach(function (p) { p.remove(); });
+
+    var imgUrl = flowerPhotoMap[flowerName];
+    var newPanel = document.createElement('div');
+    newPanel.className = 'flower-panel';
+
+    if (imgUrl) {
+      // ✅【点検済み】花図鑑の写真
+      newPanel.innerHTML = '<img class="flower-panel-img" src="' + imgUrl + '"><div class="flower-panel-info\"><div class="flower-panel-name">' + escapeHtml(flowerName) + '</div>ワークショップで登場したお花です。</div>';
+    } else {
+      newPanel.innerHTML = '<div class="flower-panel-info"><div class="flower-panel-name">' + escapeHtml(flowerName) + '</div>' + escapeHtml(flowerName) + 'の写真は準備中です</div>';
+    }
+    tagEl.parentElement.insertAdjacentElement('afterend', newPanel);
+  }
+
+  function openModal(src) {
+    var modal = document.getElementById('photoModal');
+    var modalImg = document.getElementById('modalImg');
+    modalImg.src = src;
+    modal.classList.add('open');
+  }
+  function closeModal() {
+    document.getElementById('photoModal').classList.remove('open');
+  }
+
+  function copyUserId() {
+    var btn = document.getElementById('copyIdBtn');
+    var text = currentUserId;
+
+    function markCopied() {
+      btn.textContent = 'コピーしました';
+      btn.classList.add('copied');
+      setTimeout(function () {
+        btn.textContent = 'IDをコピーする';
+        btn.classList.remove('copied');
+      }, 2500);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(markCopied).catch(function () { fallbackCopy(text, markCopied); });
+    } else {
+      fallbackCopy(text, markCopied);
+    }
+  }
+
+  function fallbackCopy(text, done) {
+    var el = document.getElementById('idValue');
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    try { document.execCommand('copy'); } catch (e) { /* noop */ }
+    sel.removeAllRanges();
+    done();
+  }
+
+  function showError(message) {
+    document.getElementById('greeting').textContent = '';
+    document.getElementById('container').innerHTML = '<div class="state-message">' + escapeHtml(message) + '</div>';
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  function escapeJs(str) {
+    return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
+  }
+</script>
+
+</body>
+</html>

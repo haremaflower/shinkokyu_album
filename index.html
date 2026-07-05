@@ -29,472 +29,440 @@
   html, body{
     margin: 0; padding: 0;
     background: var(--bg); color: var(--text);
-    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    letter-spacing: 0.02em;
+    font-family: 'Noto Sans JP', sans-serif;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  body{
-    background-image:
-      radial-gradient(circle at 20% 15%, rgba(124,135,104,0.04), transparent 40%),
-      radial-gradient(circle at 85% 60%, rgba(201,155,122,0.05), transparent 45%);
-  }
+  .shippori { font-family: 'Shippori Mincho', serif; }
 
-  header{
-    padding: 48px 24px 32px;
+  header {
+    padding: 24px 20px 16px;
     text-align: center;
-    border-bottom: 1px solid var(--line);
-    position: relative;
-    overflow: hidden;
+    background: var(--bg);
+  }
+  header h1 {
+    margin: 0; font-size: 18px; font-weight: 500; letter-spacing: 0.15em;
+    color: var(--text);
+  }
+  header p {
+    margin: 6px 0 0; font-size: 11px; letter-spacing: 0.08em; color: var(--text-soft);
   }
 
-  header::before{
-    content: '';
-    position: absolute;
-    top: -20px; left: -20px;
-    width: 140px; height: 140px;
-    opacity: 0.35;
-    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><g fill='none' stroke='%23453b30' stroke-width='1.2'><path d='M100 40 C120 60 120 90 100 110 C80 90 80 60 100 40Z'/><path d='M100 40 C80 55 60 55 45 40'/><path d='M100 110 C110 130 130 140 150 135'/><circle cx='100' cy='75' r='6'/></g></svg>") no-repeat center / contain;
+  #greeting {
+    padding: 0 20px; text-align: center; font-size: 13px; color: var(--text);
+    margin-bottom: 12px;
   }
 
-  header .brand{
-    font-size: 12px; letter-spacing: 0.25em; color: var(--olive-dark);
-    margin-bottom: 18px; position: relative;
+  .premium-badge-container {
+    display: flex; justify-content: center; margin-bottom: 20px;
+  }
+  .premium-badge {
+    background: linear-gradient(135deg, #d4af37, #aa7c11);
+    color: #fff; font-size: 11px; font-weight: 500; padding: 4px 14px;
+    border-radius: 20px; letter-spacing: 0.05em; box-shadow: 0 2px 6px rgba(170,124,17,0.2);
   }
 
-  header h1{
-    font-family: 'Shippori Mincho', serif; font-weight: 500;
-    font-size: 23px; margin: 0 0 10px; letter-spacing: 0.1em;
-    color: var(--text); position: relative; line-height: 1.5;
+  .sample-alert {
+    margin: 0 20px 24px; padding: 18px; background: #fff;
+    border: 1px solid var(--beige-line); border-radius: 8px; text-align: center;
+  }
+  .sample-alert-title {
+    font-size: 14px; font-weight: 600; color: var(--terracotta); margin-bottom: 8px;
+  }
+  .sample-alert-text {
+    font-size: 12px; color: var(--text); line-height: 1.6; text-align: left;
+    margin: 0 0 12px; display: inline-block;
+  }
+  .sample-alert-sub {
+    font-size: 11px; color: var(--text-soft); line-height: 1.5; border-top: 1px dashed var(--beige-line);
+    padding-top: 10px; margin: 0; text-align: left;
   }
 
-  header .greeting{
-    font-size: 13px; color: var(--text-soft); font-weight: 300; position: relative;
-  }
-  header .greeting .name{ color: var(--text); font-weight: 500; margin: 0 2px; }
+  .container { padding: 0 20px 40px; }
 
-  .premium-badge{
-    display: inline-block;
-    margin-top: 14px;
-    padding: 6px 16px;
-    font-size: 10.5px;
-    letter-spacing: 0.12em;
-    color: #fff;
-    background: linear-gradient(120deg, var(--olive-dark), var(--olive));
-    border-radius: 2px;
-    position: relative;
+  .section-title {
+    font-size: 14px; font-weight: 500; letter-spacing: 0.1em; color: var(--olive);
+    margin: 32px 0 16px; padding-bottom: 6px; border-bottom: 1px solid var(--line);
   }
 
-  .debug-banner{
-    background: #453b30;
-    color: #fff;
-    font-size: 11px;
-    text-align: center;
-    padding: 8px;
-    letter-spacing: 0.08em;
+  .album-card {
+    background: #fff; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 4px 14px rgba(69,59,48,0.04);
+    margin-bottom: 28px; border: 1px solid rgba(230,222,208,0.5);
+  }
+  .album-header {
+    padding: 14px 16px; border-bottom: 1px solid var(--line);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .album-title-group { display: flex; align-items: center; gap: 8px; }
+  .album-vol {
+    font-size: 11px; font-weight: 500; color: #fff; background: var(--olive);
+    padding: 1px 6px; border-radius: 3px; letter-spacing: 0.02em;
+  }
+  .album-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .album-date { font-size: 11px; color: var(--text-soft); font-family: sans-serif; }
+
+  .photo-grid {
+    display: grid; grid-template-columns: 1fr; gap: 2px; background: var(--line); padding: 2px 0;
+  }
+  .photo-grid.grid-2 { grid-template-columns: 1fr 1fr; }
+  .photo-grid.grid-3 { grid-template-columns: 2fr 1fr; grid-template-rows: 1fr 1fr; }
+  .photo-grid.grid-3 .photo-wrapper:first-child { grid-row: span 2; }
+
+  .photo-wrapper {
+    position: relative; width: 100%; padding-top: 66.66%; background: #eae4d9; overflow: hidden;
+  }
+  .photo-grid.grid-3 .photo-wrapper:first-child { padding-top: 133.6%; }
+  .photo-wrapper img {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;
+    cursor: pointer; transition: transform 0.2s ease;
+  }
+  .photo-wrapper img:active { transform: scale(0.97); }
+
+  .comment-box {
+    padding: 16px; background: #fff; font-size: 12.5px; line-height: 1.6; color: var(--text);
   }
 
-  .container{ max-width: 480px; margin: 0 auto; padding: 32px 20px 80px; }
+  .flower-tags {
+    padding: 0 16px 16px; display: flex; flex-wrap: wrap; gap: 6px; background: #fff;
+  }
+  .flower-tag {
+    font-size: 11px; color: var(--olive); background: var(--bg); padding: 4px 10px;
+    border-radius: 4px; border: 1px solid var(--beige-line); cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .flower-tag:active { background: var(--beige); }
 
-  .state-message{
-    text-align: center; padding: 100px 20px; color: var(--text-soft);
-    font-size: 13px; line-height: 1.9;
+  /* 花の図鑑ミニパネル */
+  .flower-panel {
+    background: var(--bg); border-top: 1px dashed var(--beige-line); padding: 12px 16px;
+    display: flex; gap: 12px; align-items: center;
   }
-  .state-message .loader{
-    width: 22px; height: 22px; margin: 0 auto 24px;
-    border: 1px solid var(--line); border-top-color: var(--olive);
-    border-radius: 50%; animation: spin 0.9s linear infinite;
+  .flower-panel-img {
+    width: 38px; height: 38px; border-radius: 4px; object-fit: cover; background: #eae4d9;
   }
-  @keyframes spin{ to{ transform: rotate(360deg); } }
-
-  .sample-banner{
-    background: #ffffff;
-    border: 1px solid var(--terracotta);
-    border-radius: 4px;
-    padding: 22px 20px;
-    margin-bottom: 40px;
-    text-align: center;
+  .flower-panel-info {
+    flex: 1; font-size: 11px; line-height: 1.4; color: var(--text-soft);
   }
-  .sample-banner .label{
-    font-size: 10px; letter-spacing: 0.2em; color: var(--terracotta);
-    margin-bottom: 10px; display: block;
-  }
-  .sample-banner .message{
-    font-size: 13px; line-height: 1.9; color: var(--text); font-weight: 300;
+  .flower-panel-name {
+    font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 2px;
   }
 
-  .id-register-box{ margin-top: 18px; padding-top: 18px; border-top: 1px dashed var(--beige-line); }
-  .id-register-box .instruction{ font-size: 11.5px; line-height: 1.8; color: var(--text-soft); margin-bottom: 14px; font-weight: 300; }
-  .id-value{
-    display: block; font-size: 11px; background: var(--beige); border-radius: 4px;
-    padding: 12px 14px; margin-bottom: 12px; word-break: break-all; color: var(--text-soft); letter-spacing: 0.02em;
+  .teaser-card {
+    background: #fff; border: 1px dashed var(--olive); border-radius: 8px; padding: 16px;
+    margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;
   }
-  .copy-id-btn{
-    display: inline-block; background: var(--olive); color: #ffffff; font-size: 12px;
-    letter-spacing: 0.1em; padding: 10px 24px; border-radius: 2px; border: none; cursor: pointer;
+  .teaser-info { flex: 1; padding-right: 12px; }
+  .teaser-month {
+    font-size: 11px; color: var(--olive); font-weight: 500; margin-bottom: 2px;
   }
-  .copy-id-btn.copied{ background: var(--olive-dark); }
-
-  .section-heading{ display: flex; align-items: center; gap: 14px; margin: 8px 0 24px; }
-  .section-heading .en{ font-size: 10px; letter-spacing: 0.25em; color: var(--olive-dark); white-space: nowrap; }
-  .section-heading .rule{ flex: 1; height: 1px; background: var(--line); }
-
-  .teaser-section{ margin-bottom: 64px; }
-  .teaser-lead{ font-size: 12px; color: var(--text-soft); line-height: 1.9; margin-bottom: 28px; font-weight: 300; }
-  .teaser-scroll{
-    display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px;
-    margin: 0 -20px; padding-left: 20px; padding-right: 20px;
-    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  .teaser-title {
+    font-size: 13.5px; font-weight: 600; color: var(--text);
   }
-  .teaser-scroll::-webkit-scrollbar{ display: none; }
-
-  .teaser-card{
-    flex: 0 0 auto; width: 200px; scroll-snap-align: start;
-    border-radius: 4px; padding: 22px 18px; position: relative; overflow: hidden;
+  .teaser-date {
+    font-size: 11.5px; color: var(--terracotta); font-weight: 500; margin-top: 4px;
+    display: flex; align-items: center; gap: 4px;
   }
-  .teaser-card.is-confirmed{ background: #ffffff; border: 1px solid var(--beige-line); }
-  .teaser-card.is-teaser{ background: var(--beige); border: 1px solid transparent; }
-
-  .teaser-vol{ font-size: 10px; letter-spacing: 0.15em; color: var(--text-soft); margin-bottom: 10px; }
-  .teaser-month{ font-size: 11px; letter-spacing: 0.1em; color: var(--terracotta); margin-bottom: 14px; }
-  .teaser-title{
-    font-family: 'Shippori Mincho', serif; font-size: 15.5px; line-height: 1.6;
-    font-weight: 500; margin-bottom: 16px; min-height: 48px; color: var(--text);
+  .interest-btn {
+    border: 1px solid var(--olive); background: #fff; color: var(--olive);
+    padding: 6px 12px; border-radius: 6px; font-size: 11.5px; font-weight: 500;
+    cursor: pointer; display: flex; align-items: center; gap: 4px;
+    transition: all 0.2s ease; white-space: nowrap;
   }
-  .teaser-status{ font-size: 9.5px; letter-spacing: 0.12em; padding: 4px 10px; border-radius: 2px; display: inline-block; }
-  .teaser-status.confirmed{ background: var(--olive); color: #ffffff; }
-  .teaser-status.teaser{ background: transparent; border: 1px solid var(--terracotta); color: var(--terracotta); }
-
-  .teaser-heart{
-    position: absolute; top: 14px; right: 14px; font-size: 17px;
-    color: var(--text-soft); opacity: 0.5; cursor: pointer;
-    transition: opacity 0.2s, color 0.2s, transform 0.15s; user-select: none;
-    background: none; border: none; padding: 4px; line-height: 1;
-  }
-  .teaser-heart.active{ opacity: 1; color: #b5765f; transform: scale(1.1); }
-
-  .album-card{ margin-bottom: 56px; }
-  .album-card:not(:last-child){ padding-bottom: 48px; border-bottom: 1px solid var(--line); }
-  .album-meta{ display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
-  .album-vol{
-    font-size: 10.5px; letter-spacing: 0.12em; color: var(--olive-dark);
-    background: rgba(124,135,104,0.1); padding: 3px 9px; border-radius: 2px;
-  }
-  .album-date{ font-size: 11px; letter-spacing: 0.15em; color: var(--text-soft); }
-  .album-title{
-    font-family: 'Shippori Mincho', serif; font-size: 18px; font-weight: 500;
-    margin: 4px 0 20px; letter-spacing: 0.05em; line-height: 1.5; color: var(--text);
+  .interest-btn.active {
+    background: var(--olive); color: #fff;
   }
 
-  /* ---- 思い出写真：メイン1枚＋下2枚 ---- */
-  .photo-group{ margin-bottom: 20px; }
-  .photo-main{
-    width: 100%; overflow: hidden; border-radius: 4px; background: #eee;
-    border: 1px solid var(--beige-line); margin-bottom: 8px;
+  .id-section {
+    margin-top: 24px; padding: 20px; background: var(--beige); border-radius: 8px;
+    text-align: center; border: 1px solid var(--beige-line);
   }
-  .photo-main img{ display: block; width: 100%; height: auto; object-fit: cover; }
-  .photo-sub-row{ display: flex; gap: 8px; }
-  .photo-sub{
-    flex: 1; overflow: hidden; border-radius: 4px; background: #eee;
-    border: 1px solid var(--beige-line); aspect-ratio: 1 / 1;
+  .id-title { font-size: 11px; color: var(--text-soft); margin-bottom: 6px; letter-spacing: 0.05em; }
+  .id-value { font-size: 11px; color: var(--text); font-family: monospace; background: #fff; padding: 4px 8px; border-radius: 4px; display: inline-block; word-break: break-all; margin-bottom: 10px; border: 1px solid var(--line); }
+  .copy-btn {
+    background: var(--text); color: #fff; border: none; padding: 6px 16px; border-radius: 4px; font-size: 11px; cursor: pointer; transition: background 0.2s;
   }
-  .photo-sub img{ display: block; width: 100%; height: 100%; object-fit: cover; }
+  .copy-btn.copied { background: var(--olive); }
 
-  .flower-tags{ display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
-  .flower-tag{
-    font-size: 11px; padding: 5px 12px; border: 1px solid var(--olive);
-    border-radius: 2px; color: var(--olive-dark); letter-spacing: 0.06em; background: #ffffff;
-    cursor: pointer; user-select: none;
-  }
-  .flower-tag.is-open{ background: var(--olive); color: #fff; }
+  .state-message { text-align: center; padding: 60px 20px; font-size: 13px; color: var(--text-soft); }
 
-  .flower-photo-panel{
-    display: none;
-    margin-bottom: 20px;
-    border-radius: 4px;
-    overflow: hidden;
-    border: 1px solid var(--beige-line);
-    background: #fff;
+  /* 🔍 画像拡大モーダル用スタイル */
+  #photoModal {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(43, 37, 30, 0.92); z-index: 1000; justify-content: center; align-items: center;
+    padding: 16px; opacity: 0; transition: opacity 0.2s ease;
   }
-  .flower-photo-panel.is-visible{ display: block; }
-  .flower-photo-panel img{ display: block; width: 100%; height: auto; object-fit: cover; }
-  .flower-photo-panel .no-photo{
-    padding: 30px 20px; text-align: center; font-size: 11.5px; color: var(--text-soft);
+  #photoModal.open { display: flex; opacity: 1; }
+  #modalImg {
+    max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 4px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3); transform: scale(0.95); transition: transform 0.2s ease;
   }
-
-  .ai-comment-box{ background: var(--beige); border-radius: 4px; padding: 22px 20px; }
-  .ai-comment-label{ font-size: 10px; letter-spacing: 0.2em; color: var(--terracotta); margin-bottom: 10px; display: block; }
-  .ai-comment-text{ font-size: 12.5px; line-height: 1.8; color: var(--text); font-weight: 300; white-space: pre-wrap; }
-
-  footer{ text-align: center; padding: 40px 20px 60px; font-size: 10px; letter-spacing: 0.15em; color: var(--text-soft); }
-
-  @media (min-width: 520px){
-    header h1{ font-size: 25px; }
-    .album-title{ font-size: 19px; }
-  }
+  #photoModal.open #modalImg { transform: scale(1); }
 </style>
 </head>
 <body>
 
-<div class="debug-banner" id="debugBanner" style="display:none;"></div>
-
 <header>
-  <div class="brand">HANA TO TSUKI ICHI NO SHINKOKYU</div>
-  <h1>花と、月1の深呼吸</h1>
-  <div class="greeting" id="greeting">読み込み中です&hellip;</div>
-  <div id="premiumBadgeArea"></div>
+  <h1 class="shippori">花と、月1の深呼吸</h1>
+  <p>DIGITAL PHOTO ALBUM</p>
 </header>
 
+<div id="greeting"></div>
+<div id="premiumAlert"></div>
+<div id="statusAlert"></div>
+
 <div class="container" id="container">
-  <div class="state-message" id="stateMessage">
-    <div class="loader"></div>
-    アルバムを準備しております&hellip;
-  </div>
+  <div class="state-message">読み込み中...</div>
 </div>
 
-<footer>&mdash; あなただけの、花のある時間の記録 &mdash;</footer>
+<!-- 🔍 拡大表示用モーダル構造 -->
+<div id="photoModal" onclick="closeModal()">
+  <img id="modalImg" src="" alt="拡大写真">
+</div>
 
 <script>
-  var LIFF_ID = '2010604310-qrcPhB5E';
-
-  // ↓↓↓ ★ここにあなたのGASのウェブアプリURLを上書きしてください ↓↓↓
-  var GAS_API_URL = 'https://script.google.com/macros/s/AKfycbywcBgmXuudaIz09Zj8bxvBvy9tbi0QGsmdNioEb_SNvWT8x789yleolYqEqtHQgzrUYg/exec';
-
-  // ★管理者テスト用の合言葉（このURLを他人に共有しないでください）
-  var ADMIN_KEY = 'harema2026';
-
+  var API_URL = 'https://script.google.com/macros/s/AKfycbz_uQkL42xXb90kGv0Z_t-0_7zI86qg_g4wIeD4b7KIs5G_T5G6T4Hwz5S_Ue5Xy7pI/exec'; // ★実際のURLに要書き換え
   var currentUserId = '';
   var currentUserName = '';
   var flowerPhotoMap = {};
 
   document.addEventListener('DOMContentLoaded', function () {
-    var params = new URLSearchParams(window.location.search);
-    var debugUserId = params.get('debugUserId');
-    var adminKey = params.get('adminKey');
-
-    if (debugUserId && adminKey === ADMIN_KEY) {
-      // ---- 管理者テストモード：LIFFログインをスキップして直接そのIDで表示 ----
-      currentUserId = debugUserId;
-      document.getElementById('debugBanner').style.display = 'block';
-      document.getElementById('debugBanner').textContent = 'テストモード：ID「' + debugUserId + '」として表示しています';
-      fetchPageData(debugUserId);
-      return;
-    }
-
-    if (typeof liff === 'undefined') {
-      setTimeout(initializeLiff, 1000);
-    } else {
-      initializeLiff();
-    }
+    liff.init({ liffId: '2006939942-X05w88bN' }).then(function () {
+      if (liff.isLoggedIn()) {
+        var context = liff.getContext();
+        currentUserId = context ? context.userId : 'W_SAMPLE_USER_ID_9999';
+        fetchData(currentUserId);
+      } else {
+        liff.login();
+      }
+    }).catch(function (err) {
+      showError('LIFF初期化エラー: ' + err);
+    });
   });
 
-  function initializeLiff() {
-    if (typeof liff === 'undefined') {
-      showError('LINEログインの初期化に失敗しました。LINEアプリ内から開くか、ページを再読み込みしてください。');
-      return;
-    }
-
-    liff.init({ liffId: LIFF_ID })
-      .then(function () {
-        if (!liff.isLoggedIn()) { liff.login(); return; }
-        return liff.getProfile();
-      })
-      .then(function (profile) {
-        if (!profile) return;
-        currentUserId = profile.userId;
-        return fetchPageData(profile.userId);
-      })
-      .catch(function (err) {
-        showError('通信に失敗しました。時間をおいて再度お試しください。');
-        console.error(err);
-      });
-  }
-
-  function fetchPageData(lineUserId) {
-    return fetch(GAS_API_URL, {
+  function fetchData(userId) {
+    fetch(API_URL, {
       method: 'POST',
-      body: JSON.stringify({ action: 'getPageData', lineUserId: lineUserId }),
-      headers: { 'Content-Type': 'text/plain' }
+      body: JSON.stringify({ action: 'getPageData', lineUserId: userId })
     })
-      .then(function (response) { return response.json(); })
-      .then(function (data) { renderPage(data); })
-      .catch(function (err) {
-        showError('通信に失敗しました。時間をおいて再度お試しください。');
-        console.error(err);
-      });
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      if (data.error) {
+        showError(data.error);
+        return;
+      }
+      currentUserName = data.name || '';
+      flowerPhotoMap = data.flowerPhotoMap || {};
+      renderPage(data);
+    })
+    .catch(function (err) {
+      showError('通信エラーが発生しました。');
+    });
   }
 
   function renderPage(data) {
     var greetingEl = document.getElementById('greeting');
-    var containerEl = document.getElementById('container');
-    var premiumArea = document.getElementById('premiumBadgeArea');
-
-    if (data.error) { showError(data.error); return; }
-
-    flowerPhotoMap = data.flowerPhotoMap || {};
-    currentUserName = data.name || '';
-    var interestedVols = data.interestedVols || [];
-
-    if (data.isSample) {
-      greetingEl.textContent = 'ようこそ、体験ページへ。';
+    if (currentUserName) {
+      greetingEl.innerHTML = '<span class="shippori" style="font-size:15px; font-weight:600;">' + escapeHtml(currentUserName) + ' 様</span><br><span style="font-size:11px; color:var(--text-soft);">いつもお越しいただきありがとうございます</span>';
     } else {
-      greetingEl.innerHTML = data.name
-        ? '<span class="name">' + escapeHtml(data.name) + 'さん</span>、いつもご利用ありがとうございます。'
-        : 'ご来店ありがとうございます。';
+      greetingEl.innerHTML = '<span class="shippori" style="font-size:14px;">ゲスト 様</span>';
     }
 
-    // ---- プレミアムパスバッジ ----
+    var premiumEl = document.getElementById('premiumAlert');
     if (data.premium && data.premium.isPremiumMember) {
-      premiumArea.innerHTML = '<span class="premium-badge">フラワープレミアムパス会員（有効期限：' + escapeHtml(data.premium.expiryFormatted) + '）</span>';
+      premiumEl.innerHTML = '<div class="premium-badge-container"><div class=\"premium-badge\">FLOWER PREMIUM PASS 会員</div></div>';
     } else {
-      premiumArea.innerHTML = '';
+      premiumEl.innerHTML = '';
+    }
+
+    var alertEl = document.getElementById('statusAlert');
+    if (data.isSample) {
+      if (data.isExpired) {
+        alertEl.innerHTML = '\
+          <div class="sample-alert">\
+            <div class="sample-alert-title">アルバムの保管期限が満了しました</div>\
+            <p class="sample-alert-text">\
+              お預かりしていたアルバムの閲覧期限（最終参加月から1年間）が満了したため、現在は体験用サンプルを表示しています。\
+            </p>\
+            <p class="sample-alert-sub">\
+              過去にご参加いただいた方で、アルバム作成・再開をご希望の方は、公式LINEより「アルバム作成希望」とメッセージをお送りください🌸\
+            </p>\
+          </div>\
+        ';
+      } else {
+        alertEl.innerHTML = '\
+          <div class="sample-alert">\
+            <div class="sample-alert-title">体験用サンプル</div>\
+            <p class="sample-alert-text">\
+              これは体験用サンプルです。<br>\
+              実際にワークショップにご参加いただくと、あなたの作品もこんな風に記録として残ります。\
+            </p>\
+            <p class="sample-alert-sub">\
+              過去にご参加いただいた方で、アルバム作成ご希望の方は、公式LINEより「アルバム作成希望」とメッセージをお送りください✨\
+            </p>\
+          </div>\
+        ';
+      }
+    } else {
+      alertEl.innerHTML = '';
     }
 
     var html = '';
 
-    if (data.isSample) {
-      html += '<div class="sample-banner">' +
-        '<span class="label">SAMPLE</span>' +
-        '<div class="message">これは体験サンプルです。<br>実際にワークショップにご参加いただくと、<br>あなたの一枝もこんな風に記録として残ります。</div>' +
-        '<div class="id-register-box">' +
-          '<div class="instruction">常連さんですでにご登録をお願いされた方は、<br>下のボタンでIDをコピーして、<br>そのまま公式LINEのトーク画面に貼って送ってください。</div>' +
-          '<span class="id-value" id="idValue">' + escapeHtml(currentUserId) + '</span>' +
-          '<button class="copy-id-btn" id="copyIdBtn" onclick="copyUserId()">IDをコピーする</button>' +
-        '</div>' +
-        '</div>';
-    }
-
-    if (data.upcomingThemes && data.upcomingThemes.length > 0) {
-      html += '<div class="teaser-section">' +
-        '<div class="section-heading"><span class="en">UPCOMING THEMES</span><span class="rule"></span></div>' +
-        '<div class="teaser-lead">これから先の季節に、どんな一枝が待っているか。<br>日程が決まる前の、静かな予告編です。</div>' +
-        '<div class="teaser-scroll">' +
-        data.upcomingThemes.map(function (item) { return buildTeaserCard(item, interestedVols); }).join('') +
-        '</div></div>';
-    }
-
-    html += '<div class="section-heading"><span class="en">ARCHIVE</span><span class="rule"></span></div>';
-
+    // アルバム一覧
+    html += '<div class="section-title">MY MEMORIES</div>';
     if (!data.albums || data.albums.length === 0) {
-      html += '<div class="state-message">まだアルバムが登録されておりません。<br>次回のワークショップをお楽しみに。</div>';
+      html += '<div class="state-message">まだお写真の登録がありません。<br>これからのワークショップをどうぞお楽しみに。</div>';
     } else {
-      html += data.albums.map(buildAlbumCard).join('');
-    }
+      data.albums.forEach(function (album) {
+        var gridClass = 'photo-grid';
+        if (album.photos.length === 2) gridClass += ' grid-2';
+        if (album.photos.length >= 3) gridClass += ' grid-3';
 
-    containerEl.innerHTML = html;
-  }
+        html += '<div class="album-card">';
+        html += '  <div class="album-header">';
+        html += '    <div class="album-title-group">';
+        if (album.volNumber) html += '      <span class="album-vol">' + escapeHtml(album.volNumber) + '</span>';
+        html += '      <span class="album-title shippori">' + escapeHtml(album.themeTitle) + '</span>';
+        html += '    </div>';
+        html += '    <div class="album-date">' + escapeHtml(album.visitDateFormatted) + '</div>';
+        html += '  </div>';
 
-  function buildTeaserCard(item, interestedVols) {
-    var isConfirmed = item.status === 'confirmed';
-    var statusLabel = isConfirmed ? '日程確定' : 'テーマ先行公開';
-    var cardClass = isConfirmed ? 'is-confirmed' : 'is-teaser';
-    var statusClass = isConfirmed ? 'confirmed' : 'teaser';
-    var isActive = interestedVols.indexOf(item.volNumber) !== -1;
-
-    return (
-      '<div class="teaser-card ' + cardClass + '">' +
-        '<button class="teaser-heart' + (isActive ? ' active' : '') + '" data-vol="' + escapeAttr(item.volNumber) + '" onclick="handleHeartClick(this)">' + (isActive ? '♥' : '♡') + '</button>' +
-        '<div class="teaser-vol">' + escapeHtml(item.volNumber) + '</div>' +
-        '<div class="teaser-month">' + escapeHtml(item.monthLabel) + '</div>' +
-        '<div class="teaser-title">' + escapeHtml(item.themeTitle) + '</div>' +
-        '<span class="teaser-status ' + statusClass + '">' + statusLabel + '</span>' +
-      '</div>'
-    );
-  }
-
-  function handleHeartClick(btn) {
-    var vol = btn.getAttribute('data-vol');
-    var wasActive = btn.classList.contains('active');
-
-    // 先に見た目だけ即時反映（レスポンス待ちで固まらないように）
-    btn.classList.toggle('active');
-    btn.textContent = wasActive ? '♡' : '♥';
-
-    fetch(GAS_API_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'toggleInterest', lineUserId: currentUserId, volNumber: vol, name: currentUserName }),
-      headers: { 'Content-Type': 'text/plain' }
-    })
-      .then(function (res) { return res.json(); })
-      .then(function (result) {
-        if (!result || !result.success) {
-          // 失敗したら見た目を元に戻す
-          btn.classList.toggle('active');
-          btn.textContent = wasActive ? '♥' : '♡';
+        if (album.photos.length > 0) {
+          html += '  <div class="' + gridClass + '">';
+          album.photos.slice(0, 3).forEach(function (url) {
+            html += '    <div class="photo-wrapper"><img src="' + url + '" alt="お花の写真" onclick="openModal(\'' + escapeJs(url) + '\')"></div>';
+          });
+          html += '  </div>';
         }
-      })
-      .catch(function () {
-        btn.classList.toggle('active');
-        btn.textContent = wasActive ? '♥' : '♡';
+
+        if (album.aiComment) {
+          html += '  <div class="comment-box">' + album.aiComment.replace(/\n/g, '<br>') + '</div>';
+        }
+
+        if (album.flowers && album.flowers.length > 0) {
+          html += '  <div class="flower-tags">';
+          album.flowers.forEach(function (fl) {
+            html += '    <span class="flower-tag" onclick="toggleFlowerPanel(this, \'' + escapeJs(fl) + '\')"># ' + escapeHtml(fl) + '</span>';
+          });
+          html += '  </div>';
+        }
+
+        html += '</div>';
       });
-  }
-
-  function buildAlbumCard(album, albumIndex) {
-    var photos = album.photos || [];
-    var photoHtml = '';
-    if (photos.length > 0) {
-      photoHtml += '<div class="photo-group">';
-      photoHtml += '<div class="photo-main"><img src="' + escapeAttr(photos[0]) + '" alt="' + escapeAttr(album.themeTitle) + '" loading="lazy"></div>';
-      if (photos.length > 1) {
-        photoHtml += '<div class="photo-sub-row">';
-        for (var i = 1; i < photos.length; i++) {
-          photoHtml += '<div class="photo-sub"><img src="' + escapeAttr(photos[i]) + '" alt="" loading="lazy"></div>';
-        }
-        photoHtml += '</div>';
-      }
-      photoHtml += '</div>';
     }
 
-    var flowerTagsHtml = (album.flowers || []).map(function (f) {
-      return '<span class="flower-tag" data-flower="' + escapeAttr(f) + '" onclick="toggleFlowerPhoto(this)">' + escapeHtml(f) + '</span>';
-    }).join('');
+    // 次回テーマ一覧
+    if (data.upcomingThemes && data.upcomingThemes.length > 0) {
+      html += '<div class="section-title">UPCOMING THEMES</div>';
+      html += '<div style="font-size: 12px; color: var(--text-soft); line-height: 1.6; margin: -8px 0 18px;">これから先の季節に、どんな出会いが待っているか。<br>みなさまと季節を楽しめることを楽しみにしています</div>';
 
-    var commentHtml = album.aiComment
-      ? '<div class="ai-comment-box"><span class="ai-comment-label">MESSAGE</span><div class="ai-comment-text">' + escapeHtml(album.aiComment) + '</div></div>'
-      : '';
+      data.upcomingThemes.forEach(function (theme) {
+        var isInterested = data.interestedVols.indexOf(theme.volNumber) !== -1;
+        var btnClass = isInterested ? 'interest-btn active' : 'interest-btn';
+        var btnText = isInterested ? '気付み' : '気になる';
 
-    return (
-      '<div class="album-card">' +
-        '<div class="album-meta">' +
-          (album.volNumber ? '<span class="album-vol">' + escapeHtml(album.volNumber) + '</span>' : '<span></span>') +
-          '<span class="album-date">' + escapeHtml(album.visitDateFormatted || '') + '</span>' +
-        '</div>' +
-        '<div class="album-title">' + escapeHtml(album.themeTitle || '') + '</div>' +
-        photoHtml +
-        (flowerTagsHtml ? '<div class="flower-tags">' + flowerTagsHtml + '</div>' : '') +
-        commentHtml +
-      '</div>'
-    );
+        var statusStr = theme.status || '';
+
+        html += '<div class="teaser-card">';
+        html += '  <div class="teaser-info">';
+        html += '    <div class="teaser-month">' + escapeHtml(theme.monthLabel) + ' のテーマ</div>';
+        html += '    <div class="teaser-title shippori">' + escapeHtml(theme.themeTitle) + '</div>';
+        
+        if (statusStr === '日程確定' || statusStr.toLowerCase() === 'confirmed') {
+          var dateVal = theme.scheduleDate ? escapeHtml(theme.scheduleDate) : '調整中';
+          html += '    <div class="teaser-date"><span>📅</span> 日程：' + dateVal + '</div>';
+        }
+        html += '  </div>';
+        
+        if (statusStr.toLowerCase() === 'teaser' || statusStr === '予告' || statusStr === '') {
+          html += '  <button class="' + btnClass + '" onclick="handleInterest(this, \'' + escapeJs(theme.volNumber) + '\')">';
+          html += '    <span>♥</span> <span class="btn-label">' + btnText + '</span>';
+          html += '  </button>';
+        }
+        html += '</div>';
+      });
+    }
+
+    html += '<div style="text-align: center; font-size: 11.5px; color: var(--text-soft); margin: 44px 0 -8px; line-height: 1.6;">あなただけの花と深呼吸した時間を記録するアルバムです</div>';
+
+    // LINE ユーザーID確認セクション
+    html += '<div class="id-section">';
+    html += '  <div class="id-title">LINE ユーザーID</div>';
+    html += '  <div class="id-value" id="idValue">' + escapeHtml(currentUserId) + '</div><br>';
+    html += '  <button class="copy-btn" id="copyIdBtn" onclick="copyUserId()">IDをコピーする</button>';
+    html += '</div>';
+
+    document.getElementById('container').innerHTML = html;
   }
 
-  /**
-   * 花タグをタップした時に、その花の代表写真をタグの直下に表示する。
-   * すでに開いていれば閉じる。他のタグが開いていれば閉じてから開く。
-   */
-  function toggleFlowerPhoto(tagEl) {
-    var flowerName = tagEl.getAttribute('data-flower');
-    var isOpen = tagEl.classList.contains('is-open');
-
-    // 同じカード内の他のパネルを一旦全部閉じる
-    var card = tagEl.closest('.album-card');
-    var panels = card.querySelectorAll('.flower-photo-panel');
-    var tags = card.querySelectorAll('.flower-tag');
-    panels.forEach(function (p) { p.classList.remove('is-visible'); p.innerHTML = ''; });
-    tags.forEach(function (t) { t.classList.remove('is-open'); });
-
-    if (isOpen) return; // すでに開いていたタグを押した＝閉じるだけで終了
-
-    tagEl.classList.add('is-open');
-
-    var photoUrl = flowerPhotoMap[flowerName];
-    var newPanel = document.createElement('div');
-    newPanel.className = 'flower-photo-panel is-visible';
-    if (photoUrl) {
-      newPanel.innerHTML = '<img src="' + escapeAttr(photoUrl) + '" alt="' + escapeAttr(flowerName) + '">';
+  function handleInterest(btn, volNumber) {
+    var isActivating = !btn.classList.contains('active');
+    if (isActivating) {
+      btn.classList.add('active');
+      btn.querySelector('.btn-label').textContent = '気付み';
     } else {
-      newPanel.innerHTML = '<div class="no-photo">' + escapeHtml(flowerName) + 'の写真は準備中です</div>';
+      btn.classList.remove('active');
+      btn.querySelector('.btn-label').textContent = '気になる';
+    }
+
+    fetch(API_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'toggleInterest',
+        lineUserId: currentUserId,
+        volNumber: volNumber,
+        name: currentUserName
+      })
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      if (!data.success) {
+        if (isActivating) {
+          btn.classList.remove('active');
+          btn.querySelector('.btn-label').textContent = '気になる';
+        } else {
+          btn.classList.add('active');
+          btn.querySelector('.btn-label').textContent = '気付み';
+        }
+        alert('更新に失敗しました: ' + data.error);
+      }
+    })
+    .catch(function () {
+      alert('通信エラーが発生しました。');
+    });
+  }
+
+  function toggleFlowerPanel(tagEl, flowerName) {
+    var nextEl = tagEl.parentElement.nextElementSibling;
+    if (nextEl && nextEl.classList.contains('flower-panel')) {
+      nextEl.remove();
+      return;
+    }
+
+    var currentPanels = tagEl.parentElement.parentElement.querySelectorAll('.flower-panel');
+    currentPanels.forEach(function (p) { p.remove(); });
+
+    var imgUrl = flowerPhotoMap[flowerName];
+    var newPanel = document.createElement('div');
+    newPanel.className = 'flower-panel';
+
+    if (imgUrl) {
+      newPanel.innerHTML = '<img class="flower-panel-img" src="' + imgUrl + '"><div class="flower-panel-info\"><div class="flower-panel-name">' + escapeHtml(flowerName) + '</div>ワークショップで登場したお花です。</div>';
+    } else {
+      newPanel.innerHTML = '<div class="flower-panel-info"><div class="flower-panel-name">' + escapeHtml(flowerName) + '</div>' + escapeHtml(flowerName) + 'の写真は準備中です</div>';
     }
     tagEl.parentElement.insertAdjacentElement('afterend', newPanel);
+  }
+
+  function openModal(src) {
+    var modal = document.getElementById('photoModal');
+    var modalImg = document.getElementById('modalImg');
+    modalImg.src = src;
+    modal.classList.add('open');
+  }
+  function closeModal() {
+    document.getElementById('photoModal').classList.remove('open');
   }
 
   function copyUserId() {
@@ -535,9 +503,12 @@
   }
 
   function escapeHtml(str) {
-    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
   }
-  function escapeAttr(str) { return escapeHtml(str); }
+
+  function escapeJs(str) {
+    return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
+  }
 </script>
 
 </body>

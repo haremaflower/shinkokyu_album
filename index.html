@@ -1,101 +1,544 @@
-
 <!DOCTYPE html>
-<html dir="ltr" lang="ja">
+<html lang="ja">
 <head>
-      <script type="module" crossorigin src="https://static.line-scdn.net/line_web_login/edge/dist/assets/polyfills-Dwbh5rNy.js"></script>
+<meta charset="UTF-8">
+<title>花と、月1の深呼吸</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-  <meta charset="UTF-8">
-  <meta name="robots" content="noindex">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>LINE Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 
-  <link rel="shortcut icon" type="image/x-icon" href="https://vos.line-scdn.net/login-web/img/favicon.ico">
-  <link rel="icon" type="image/x-icon" sizes="32x32" href="https://vos.line-scdn.net/login-web/img/favicon-32x32.png">
-  <link rel="icon" type="image/x-icon" sizes="16x16" href="https://vos.line-scdn.net/login-web/img/favicon-16x16.png">
+<script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
-  <link rel="apple-touch-icon-precomposed" href="https://vos.line-scdn.net/login-web/img/apple-touch-icon-precomposed.png">
+<style>
+  :root{
+    --bg: #faf6ee;
+    --text: #453b30;
+    --text-soft: #8a7f6f;
+    --beige: #f2ecdf;
+    --beige-line: #e3d9c4;
+    --line: #e6ded0;
+    --olive: #7c8768;
+    --olive-dark: #626d54;
+    --terracotta: #c99b7a;
+  }
 
-<script>/* analytics */
-(function(g,d){
-  var v='release/stable';
-  g._trmq=[];g._trm=function(){g._trmq.push(arguments)};
-  g.onerror=function(m,f,l,c){g._trm('send','exception',m,f,l,c)};
-  var h=location.protocol==='https:'?'https://d.line-scdn.net':'http://d.line-cdn.net';
-  var s=d.createElement('script');s.async=1;
-  s.src=h+'/n/_4/torimochi.js/public/v1/'+v+'/min/torimochi.js';
-  var t=d.getElementsByTagName('script')[0];t.parentNode.insertBefore(s,t);
-})(window, document);
+  *{ box-sizing: border-box; }
 
-_trm('performance', { rate: 0.05 });
-_trm('enable', { productKey: "line-web-login-real" });
-/* /analytics */</script>
+  html, body{
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.02em;
+  }
 
-<script type="text/javascript" charset="UTF-8" src="https://access.line.me/oauth2/v2.1/messages"></script>
+  body{
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(124,135,104,0.04), transparent 40%),
+      radial-gradient(circle at 85% 60%, rgba(201,155,122,0.05), transparent 45%);
+  }
 
-      <script type="module" crossorigin src="https://static.line-scdn.net/line_web_login/edge/dist/assets/loginUserConfirm-C1DaA4CA.js"></script>
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/modulepreload-polyfill-Dqv5PPZA.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/common-CdBVkcKK.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/cLogo01-Cn_ghU24.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/Constant-DvWA3Li3.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/lFooter01-C7i6PN6r.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/lContents01-BvZM6Sx-.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/cButton01-DWX6M7KM.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/uLayoutMixin-DdfZOwMH.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/createLayoutWrapper-BHKDznPP.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/_commonjsHelpers-MdiGH4nz.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/uaPlugin-CbHEYUcA.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/eventHubClickPlugin-DaV8IiU-.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/darkModePlugin-CVkCycRS.js">
-    <link rel="modulepreload" crossorigin href="https://static.line-scdn.net/line_web_login/edge/dist/assets/typesafeUtsWithAnonymous-CdUTPezI.js">
-    <link rel="stylesheet" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/common-Bhu3aKU0.css">
-    <link rel="stylesheet" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/lContents01-BjlPdee4.css">
-    <link rel="stylesheet" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/lFooter01-CewfWLDy.css">
-    <link rel="stylesheet" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/cButton01-ChNamPEZ.css">
-    <link rel="stylesheet" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/loginUserConfirm-BUqyLmWp.css">
-    <link rel="stylesheet" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/main-iNVhYMwh.css">
-    <link rel="stylesheet" href="https://static.line-scdn.net/line_web_login/edge/dist/assets/ldsm-semantic-dark-mode-DyhY1IDA.css">
+  header{
+    padding: 48px 24px 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
 
+  header::before{
+    content: '';
+    position: absolute;
+    top: -20px; left: -20px;
+    width: 140px; height: 140px;
+    opacity: 0.35;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><g fill='none' stroke='%23453b30' stroke-width='1.2'><path d='M100 40 C120 60 120 90 100 110 C80 90 80 60 100 40Z'/><path d='M100 40 C80 55 60 55 45 40'/><path d='M100 110 C110 130 130 140 150 135'/><circle cx='100' cy='75' r='6'/></g></svg>") no-repeat center / contain;
+  }
+
+  header .brand{
+    font-size: 12px; letter-spacing: 0.25em; color: var(--olive-dark);
+    margin-bottom: 18px; position: relative;
+  }
+
+  header h1{
+    font-family: 'Shippori Mincho', serif; font-weight: 500;
+    font-size: 23px; margin: 0 0 10px; letter-spacing: 0.1em;
+    color: var(--text); position: relative; line-height: 1.5;
+  }
+
+  header .greeting{
+    font-size: 13px; color: var(--text-soft); font-weight: 300; position: relative;
+  }
+  header .greeting .name{ color: var(--text); font-weight: 500; margin: 0 2px; }
+
+  .premium-badge{
+    display: inline-block;
+    margin-top: 14px;
+    padding: 6px 16px;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    color: #fff;
+    background: linear-gradient(120deg, var(--olive-dark), var(--olive));
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .debug-banner{
+    background: #453b30;
+    color: #fff;
+    font-size: 11px;
+    text-align: center;
+    padding: 8px;
+    letter-spacing: 0.08em;
+  }
+
+  .container{ max-width: 480px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  .state-message{
+    text-align: center; padding: 100px 20px; color: var(--text-soft);
+    font-size: 13px; line-height: 1.9;
+  }
+  .state-message .loader{
+    width: 22px; height: 22px; margin: 0 auto 24px;
+    border: 1px solid var(--line); border-top-color: var(--olive);
+    border-radius: 50%; animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  .sample-banner{
+    background: #ffffff;
+    border: 1px solid var(--terracotta);
+    border-radius: 4px;
+    padding: 22px 20px;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .sample-banner .label{
+    font-size: 10px; letter-spacing: 0.2em; color: var(--terracotta);
+    margin-bottom: 10px; display: block;
+  }
+  .sample-banner .message{
+    font-size: 13px; line-height: 1.9; color: var(--text); font-weight: 300;
+  }
+
+  .id-register-box{ margin-top: 18px; padding-top: 18px; border-top: 1px dashed var(--beige-line); }
+  .id-register-box .instruction{ font-size: 11.5px; line-height: 1.8; color: var(--text-soft); margin-bottom: 14px; font-weight: 300; }
+  .id-value{
+    display: block; font-size: 11px; background: var(--beige); border-radius: 4px;
+    padding: 12px 14px; margin-bottom: 12px; word-break: break-all; color: var(--text-soft); letter-spacing: 0.02em;
+  }
+  .copy-id-btn{
+    display: inline-block; background: var(--olive); color: #ffffff; font-size: 12px;
+    letter-spacing: 0.1em; padding: 10px 24px; border-radius: 2px; border: none; cursor: pointer;
+  }
+  .copy-id-btn.copied{ background: var(--olive-dark); }
+
+  .section-heading{ display: flex; align-items: center; gap: 14px; margin: 8px 0 24px; }
+  .section-heading .en{ font-size: 10px; letter-spacing: 0.25em; color: var(--olive-dark); white-space: nowrap; }
+  .section-heading .rule{ flex: 1; height: 1px; background: var(--line); }
+
+  .teaser-section{ margin-bottom: 64px; }
+  .teaser-lead{ font-size: 12px; color: var(--text-soft); line-height: 1.9; margin-bottom: 28px; font-weight: 300; }
+  .teaser-scroll{
+    display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px;
+    margin: 0 -20px; padding-left: 20px; padding-right: 20px;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  }
+  .teaser-scroll::-webkit-scrollbar{ display: none; }
+
+  .teaser-card{
+    flex: 0 0 auto; width: 200px; scroll-snap-align: start;
+    border-radius: 4px; padding: 22px 18px; position: relative; overflow: hidden;
+  }
+  .teaser-card.is-confirmed{ background: #ffffff; border: 1px solid var(--beige-line); }
+  .teaser-card.is-teaser{ background: var(--beige); border: 1px solid transparent; }
+
+  .teaser-vol{ font-size: 10px; letter-spacing: 0.15em; color: var(--text-soft); margin-bottom: 10px; }
+  .teaser-month{ font-size: 11px; letter-spacing: 0.1em; color: var(--terracotta); margin-bottom: 14px; }
+  .teaser-title{
+    font-family: 'Shippori Mincho', serif; font-size: 15.5px; line-height: 1.6;
+    font-weight: 500; margin-bottom: 16px; min-height: 48px; color: var(--text);
+  }
+  .teaser-status{ font-size: 9.5px; letter-spacing: 0.12em; padding: 4px 10px; border-radius: 2px; display: inline-block; }
+  .teaser-status.confirmed{ background: var(--olive); color: #ffffff; }
+  .teaser-status.teaser{ background: transparent; border: 1px solid var(--terracotta); color: var(--terracotta); }
+
+  .teaser-heart{
+    position: absolute; top: 14px; right: 14px; font-size: 17px;
+    color: var(--text-soft); opacity: 0.5; cursor: pointer;
+    transition: opacity 0.2s, color 0.2s, transform 0.15s; user-select: none;
+    background: none; border: none; padding: 4px; line-height: 1;
+  }
+  .teaser-heart.active{ opacity: 1; color: #b5765f; transform: scale(1.1); }
+
+  .album-card{ margin-bottom: 56px; }
+  .album-card:not(:last-child){ padding-bottom: 48px; border-bottom: 1px solid var(--line); }
+  .album-meta{ display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+  .album-vol{
+    font-size: 10.5px; letter-spacing: 0.12em; color: var(--olive-dark);
+    background: rgba(124,135,104,0.1); padding: 3px 9px; border-radius: 2px;
+  }
+  .album-date{ font-size: 11px; letter-spacing: 0.15em; color: var(--text-soft); }
+  .album-title{
+    font-family: 'Shippori Mincho', serif; font-size: 18px; font-weight: 500;
+    margin: 4px 0 20px; letter-spacing: 0.05em; line-height: 1.5; color: var(--text);
+  }
+
+  /* ---- 思い出写真：メイン1枚＋下2枚 ---- */
+  .photo-group{ margin-bottom: 20px; }
+  .photo-main{
+    width: 100%; overflow: hidden; border-radius: 4px; background: #eee;
+    border: 1px solid var(--beige-line); margin-bottom: 8px;
+  }
+  .photo-main img{ display: block; width: 100%; height: auto; object-fit: cover; }
+  .photo-sub-row{ display: flex; gap: 8px; }
+  .photo-sub{
+    flex: 1; overflow: hidden; border-radius: 4px; background: #eee;
+    border: 1px solid var(--beige-line); aspect-ratio: 1 / 1;
+  }
+  .photo-sub img{ display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  .flower-tags{ display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .flower-tag{
+    font-size: 11px; padding: 5px 12px; border: 1px solid var(--olive);
+    border-radius: 2px; color: var(--olive-dark); letter-spacing: 0.06em; background: #ffffff;
+    cursor: pointer; user-select: none;
+  }
+  .flower-tag.is-open{ background: var(--olive); color: #fff; }
+
+  .flower-photo-panel{
+    display: none;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--beige-line);
+    background: #fff;
+  }
+  .flower-photo-panel.is-visible{ display: block; }
+  .flower-photo-panel img{ display: block; width: 100%; height: auto; object-fit: cover; }
+  .flower-photo-panel .no-photo{
+    padding: 30px 20px; text-align: center; font-size: 11.5px; color: var(--text-soft);
+  }
+
+  .ai-comment-box{ background: var(--beige); border-radius: 4px; padding: 22px 20px; }
+  .ai-comment-label{ font-size: 10px; letter-spacing: 0.2em; color: var(--terracotta); margin-bottom: 10px; display: block; }
+  .ai-comment-text{ font-size: 12.5px; line-height: 1.8; color: var(--text); font-weight: 300; white-space: pre-wrap; }
+
+  footer{ text-align: center; padding: 40px 20px 60px; font-size: 10px; letter-spacing: 0.15em; color: var(--text-soft); }
+
+  @media (min-width: 520px){
+    header h1{ font-size: 25px; }
+    .album-title{ font-size: 19px; }
+  }
+</style>
 </head>
+<body>
 
-<body ontouchstart="">
+<div class="debug-banner" id="debugBanner" style="display:none;"></div>
 
-<noscript>
-  <div class="LyWrap">
-    <!--CONTENTS-AREA-->
-    <div class="LyContents" role="main">
-      <div class="lyContentsInner">
-        <div class="MdBox01">
-          <section class="mdBox01Inner MdLYR03Error">
-            <div class="MdLogo01 mdLogo01P01">
-              <h1 class="mdLogo01Img">LINE</h1>
-            </div>
-            <h2 class="mdLYR03Title mdMN10Title">
-              <span class="mdLYR03Icon MdIco01Alert">alert</span>
-              <span>JavaScript エラー</span>
-            </h2>
-            <p class="mdLYR03Desc mdMN10Desc">
-              ブラウザでJavaScriptが無効になっています。<br />
-正しく利用するために、JavaScriptを有効に設定してください。            </p>
-          </section>
-        </div>
-      </div>
-    </div>
-  </div>
-</noscript>
+<header>
+  <div class="brand">HANA TO TSUKI ICHI NO SHINKOKYU</div>
+  <h1>花と、月1の深呼吸</h1>
+  <div class="greeting" id="greeting">読み込み中です&hellip;</div>
+  <div id="premiumBadgeArea"></div>
+</header>
 
-<div id="__layout">
-  <div class="LyBody" id="app">
-    <app app-data="{&quot;props&quot;:{&quot;assets-origin-url&quot;:&quot;https://static.line-scdn.net/line_web_login/19f167ada5c/dist&quot;,&quot;username&quot;:&quot;Naoko.M&quot;,&quot;avatar-url&quot;:&quot;https://profile.line-scdn.net/0h4S0-dH6Ha3wdVEAVD5sVA20EaBY-JTJuY2ItTn0AZ0x3NHh9NGYgHS1UNUQoMSx6MTN3SitcMh8RRxwaAwKXSBpkNUgjZCQuODAjmw/preview&quot;,&quot;login-url&quot;:&quot;/oauth2/v2.1/ssoLogin?loginChannelId=2010604310&amp;returnUri=%2Foauth2%2Fv2.1%2Fauthorize%2Fconsent%3Fapp_id%3D2010604310-qrcPhB5E%26client_id%3D2010604310%26scope%3Dprofile%26state%3DXgzQCLmQeZTQ%26response_type%3Dcode%26code_challenge_method%3DS256%26code_challenge%3DlhJ06gr-ba5UCIk7S6EQHTws4sNCNDDsVZjNdLtpyfI%26liff_sdk_version%3D2.29.1%26type%3DL%26redirect_uri%3Dhttps%253A%252F%252Fharemaflower.github.io%252Fshinkokyu_album%252F&quot;,&quot;login-with-another-account-url&quot;:&quot;/oauth2/v2.1/relogin?loginChannelId=2010604310&amp;returnUri=%2Foauth2%2Fv2.1%2Fauthorize%2Fconsent%3Fapp_id%3D2010604310-qrcPhB5E%26client_id%3D2010604310%26scope%3Dprofile%26state%3DXgzQCLmQeZTQ%26response_type%3Dcode%26code_challenge_method%3DS256%26code_challenge%3DlhJ06gr-ba5UCIk7S6EQHTws4sNCNDDsVZjNdLtpyfI%26liff_sdk_version%3D2.29.1%26type%3DL%26redirect_uri%3Dhttps%253A%252F%252Fharemaflower.github.io%252Fshinkokyu_album%252F&quot;},&quot;slots&quot;:{&quot;serverside_field&quot;:[{&quot;type&quot;:&quot;hidden&quot;,&quot;name&quot;:&quot;__csrf&quot;,&quot;value&quot;:&quot;8ZN3pAfCohvpIZnZQxH78q&quot;,&quot;id&quot;:&quot;__csrf&quot;},{&quot;type&quot;:&quot;hidden&quot;,&quot;name&quot;:&quot;lang&quot;,&quot;value&quot;:&quot;ja&quot;}],&quot;serverside_redirect_query&quot;:[{&quot;type&quot;:&quot;hidden&quot;,&quot;name&quot;:&quot;__csrf&quot;,&quot;value&quot;:&quot;8ZN3pAfCohvpIZnZQxH78q&quot;,&quot;id&quot;:&quot;__csrf&quot;}]}}" />
+<div class="container" id="container">
+  <div class="state-message" id="stateMessage">
+    <div class="loader"></div>
+    アルバムを準備しております&hellip;
   </div>
 </div>
 
+<footer>&mdash; あなただけの、花のある時間の記録 &mdash;</footer>
+
 <script>
-  var lap_optout_check_api_url = "https://optout-api.tr.line.me/enabled";
+  var LIFF_ID = '2010604310-qrcPhB5E';
+
+  // ↓↓↓ ★ここにあなたのGASのウェブアプリURLを上書きしてください ↓↓↓
+  var GAS_API_URL = 'https://script.google.com/macros/s/AKfycbywcBgmXuudaIz09Zj8bxvBvy9tbi0QGsmdNioEb_SNvWT8x789yleolYqEqtHQgzrUYg/exec';
+
+  // ★管理者テスト用の合言葉（このURLを他人に共有しないでください）
+  var ADMIN_KEY = 'harema2026';
+
+  var currentUserId = '';
+  var currentUserName = '';
+  var flowerPhotoMap = {};
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var params = new URLSearchParams(window.location.search);
+    var debugUserId = params.get('debugUserId');
+    var adminKey = params.get('adminKey');
+
+    if (debugUserId && adminKey === ADMIN_KEY) {
+      // ---- 管理者テストモード：LIFFログインをスキップして直接そのIDで表示 ----
+      currentUserId = debugUserId;
+      document.getElementById('debugBanner').style.display = 'block';
+      document.getElementById('debugBanner').textContent = 'テストモード：ID「' + debugUserId + '」として表示しています';
+      fetchPageData(debugUserId);
+      return;
+    }
+
+    if (typeof liff === 'undefined') {
+      setTimeout(initializeLiff, 1000);
+    } else {
+      initializeLiff();
+    }
+  });
+
+  function initializeLiff() {
+    if (typeof liff === 'undefined') {
+      showError('LINEログインの初期化に失敗しました。LINEアプリ内から開くか、ページを再読み込みしてください。');
+      return;
+    }
+
+    liff.init({ liffId: LIFF_ID })
+      .then(function () {
+        if (!liff.isLoggedIn()) { liff.login(); return; }
+        return liff.getProfile();
+      })
+      .then(function (profile) {
+        if (!profile) return;
+        currentUserId = profile.userId;
+        return fetchPageData(profile.userId);
+      })
+      .catch(function (err) {
+        showError('通信に失敗しました。時間をおいて再度お試しください。');
+        console.error(err);
+      });
+  }
+
+  function fetchPageData(lineUserId) {
+    return fetch(GAS_API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'getPageData', lineUserId: lineUserId }),
+      headers: { 'Content-Type': 'text/plain' }
+    })
+      .then(function (response) { return response.json(); })
+      .then(function (data) { renderPage(data); })
+      .catch(function (err) {
+        showError('通信に失敗しました。時間をおいて再度お試しください。');
+        console.error(err);
+      });
+  }
+
+  function renderPage(data) {
+    var greetingEl = document.getElementById('greeting');
+    var containerEl = document.getElementById('container');
+    var premiumArea = document.getElementById('premiumBadgeArea');
+
+    if (data.error) { showError(data.error); return; }
+
+    flowerPhotoMap = data.flowerPhotoMap || {};
+    currentUserName = data.name || '';
+    var interestedVols = data.interestedVols || [];
+
+    if (data.isSample) {
+      greetingEl.textContent = 'ようこそ、体験ページへ。';
+    } else {
+      greetingEl.innerHTML = data.name
+        ? '<span class="name">' + escapeHtml(data.name) + 'さん</span>、いつもご利用ありがとうございます。'
+        : 'ご来店ありがとうございます。';
+    }
+
+    // ---- プレミアムパスバッジ ----
+    if (data.premium && data.premium.isPremiumMember) {
+      premiumArea.innerHTML = '<span class="premium-badge">フラワープレミアムパス会員（有効期限：' + escapeHtml(data.premium.expiryFormatted) + '）</span>';
+    } else {
+      premiumArea.innerHTML = '';
+    }
+
+    var html = '';
+
+    if (data.isSample) {
+      html += '<div class="sample-banner">' +
+        '<span class="label">SAMPLE</span>' +
+        '<div class="message">これは体験サンプルです。<br>実際にワークショップにご参加いただくと、<br>あなたの一枝もこんな風に記録として残ります。</div>' +
+        '<div class="id-register-box">' +
+          '<div class="instruction">常連さんですでにご登録をお願いされた方は、<br>下のボタンでIDをコピーして、<br>そのまま公式LINEのトーク画面に貼って送ってください。</div>' +
+          '<span class="id-value" id="idValue">' + escapeHtml(currentUserId) + '</span>' +
+          '<button class="copy-id-btn" id="copyIdBtn" onclick="copyUserId()">IDをコピーする</button>' +
+        '</div>' +
+        '</div>';
+    }
+
+    if (data.upcomingThemes && data.upcomingThemes.length > 0) {
+      html += '<div class="teaser-section">' +
+        '<div class="section-heading"><span class="en">UPCOMING THEMES</span><span class="rule"></span></div>' +
+        '<div class="teaser-lead">これから先の季節に、どんな一枝が待っているか。<br>日程が決まる前の、静かな予告編です。</div>' +
+        '<div class="teaser-scroll">' +
+        data.upcomingThemes.map(function (item) { return buildTeaserCard(item, interestedVols); }).join('') +
+        '</div></div>';
+    }
+
+    html += '<div class="section-heading"><span class="en">ARCHIVE</span><span class="rule"></span></div>';
+
+    if (!data.albums || data.albums.length === 0) {
+      html += '<div class="state-message">まだアルバムが登録されておりません。<br>次回のワークショップをお楽しみに。</div>';
+    } else {
+      html += data.albums.map(buildAlbumCard).join('');
+    }
+
+    containerEl.innerHTML = html;
+  }
+
+  function buildTeaserCard(item, interestedVols) {
+    var isConfirmed = item.status === 'confirmed';
+    var statusLabel = isConfirmed ? '日程確定' : 'テーマ先行公開';
+    var cardClass = isConfirmed ? 'is-confirmed' : 'is-teaser';
+    var statusClass = isConfirmed ? 'confirmed' : 'teaser';
+    var isActive = interestedVols.indexOf(item.volNumber) !== -1;
+
+    return (
+      '<div class="teaser-card ' + cardClass + '">' +
+        '<button class="teaser-heart' + (isActive ? ' active' : '') + '" data-vol="' + escapeAttr(item.volNumber) + '" onclick="handleHeartClick(this)">' + (isActive ? '♥' : '♡') + '</button>' +
+        '<div class="teaser-vol">' + escapeHtml(item.volNumber) + '</div>' +
+        '<div class="teaser-month">' + escapeHtml(item.monthLabel) + '</div>' +
+        '<div class="teaser-title">' + escapeHtml(item.themeTitle) + '</div>' +
+        '<span class="teaser-status ' + statusClass + '">' + statusLabel + '</span>' +
+      '</div>'
+    );
+  }
+
+  function handleHeartClick(btn) {
+    var vol = btn.getAttribute('data-vol');
+    var wasActive = btn.classList.contains('active');
+
+    // 先に見た目だけ即時反映（レスポンス待ちで固まらないように）
+    btn.classList.toggle('active');
+    btn.textContent = wasActive ? '♡' : '♥';
+
+    fetch(GAS_API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'toggleInterest', lineUserId: currentUserId, volNumber: vol, name: currentUserName }),
+      headers: { 'Content-Type': 'text/plain' }
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (result) {
+        if (!result || !result.success) {
+          // 失敗したら見た目を元に戻す
+          btn.classList.toggle('active');
+          btn.textContent = wasActive ? '♥' : '♡';
+        }
+      })
+      .catch(function () {
+        btn.classList.toggle('active');
+        btn.textContent = wasActive ? '♥' : '♡';
+      });
+  }
+
+  function buildAlbumCard(album, albumIndex) {
+    var photos = album.photos || [];
+    var photoHtml = '';
+    if (photos.length > 0) {
+      photoHtml += '<div class="photo-group">';
+      photoHtml += '<div class="photo-main"><img src="' + escapeAttr(photos[0]) + '" alt="' + escapeAttr(album.themeTitle) + '" loading="lazy"></div>';
+      if (photos.length > 1) {
+        photoHtml += '<div class="photo-sub-row">';
+        for (var i = 1; i < photos.length; i++) {
+          photoHtml += '<div class="photo-sub"><img src="' + escapeAttr(photos[i]) + '" alt="" loading="lazy"></div>';
+        }
+        photoHtml += '</div>';
+      }
+      photoHtml += '</div>';
+    }
+
+    var flowerTagsHtml = (album.flowers || []).map(function (f) {
+      return '<span class="flower-tag" data-flower="' + escapeAttr(f) + '" onclick="toggleFlowerPhoto(this)">' + escapeHtml(f) + '</span>';
+    }).join('');
+
+    var commentHtml = album.aiComment
+      ? '<div class="ai-comment-box"><span class="ai-comment-label">MESSAGE</span><div class="ai-comment-text">' + escapeHtml(album.aiComment) + '</div></div>'
+      : '';
+
+    return (
+      '<div class="album-card">' +
+        '<div class="album-meta">' +
+          (album.volNumber ? '<span class="album-vol">' + escapeHtml(album.volNumber) + '</span>' : '<span></span>') +
+          '<span class="album-date">' + escapeHtml(album.visitDateFormatted || '') + '</span>' +
+        '</div>' +
+        '<div class="album-title">' + escapeHtml(album.themeTitle || '') + '</div>' +
+        photoHtml +
+        (flowerTagsHtml ? '<div class="flower-tags">' + flowerTagsHtml + '</div>' : '') +
+        commentHtml +
+      '</div>'
+    );
+  }
+
+  /**
+   * 花タグをタップした時に、その花の代表写真をタグの直下に表示する。
+   * すでに開いていれば閉じる。他のタグが開いていれば閉じてから開く。
+   */
+  function toggleFlowerPhoto(tagEl) {
+    var flowerName = tagEl.getAttribute('data-flower');
+    var isOpen = tagEl.classList.contains('is-open');
+
+    // 同じカード内の他のパネルを一旦全部閉じる
+    var card = tagEl.closest('.album-card');
+    var panels = card.querySelectorAll('.flower-photo-panel');
+    var tags = card.querySelectorAll('.flower-tag');
+    panels.forEach(function (p) { p.classList.remove('is-visible'); p.innerHTML = ''; });
+    tags.forEach(function (t) { t.classList.remove('is-open'); });
+
+    if (isOpen) return; // すでに開いていたタグを押した＝閉じるだけで終了
+
+    tagEl.classList.add('is-open');
+
+    var photoUrl = flowerPhotoMap[flowerName];
+    var newPanel = document.createElement('div');
+    newPanel.className = 'flower-photo-panel is-visible';
+    if (photoUrl) {
+      newPanel.innerHTML = '<img src="' + escapeAttr(photoUrl) + '" alt="' + escapeAttr(flowerName) + '">';
+    } else {
+      newPanel.innerHTML = '<div class="no-photo">' + escapeHtml(flowerName) + 'の写真は準備中です</div>';
+    }
+    tagEl.parentElement.insertAdjacentElement('afterend', newPanel);
+  }
+
+  function copyUserId() {
+    var btn = document.getElementById('copyIdBtn');
+    var text = currentUserId;
+
+    function markCopied() {
+      btn.textContent = 'コピーしました';
+      btn.classList.add('copied');
+      setTimeout(function () {
+        btn.textContent = 'IDをコピーする';
+        btn.classList.remove('copied');
+      }, 2500);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(markCopied).catch(function () { fallbackCopy(text, markCopied); });
+    } else {
+      fallbackCopy(text, markCopied);
+    }
+  }
+
+  function fallbackCopy(text, done) {
+    var el = document.getElementById('idValue');
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    try { document.execCommand('copy'); } catch (e) { /* noop */ }
+    sel.removeAllRanges();
+    done();
+  }
+
+  function showError(message) {
+    document.getElementById('greeting').textContent = '';
+    document.getElementById('container').innerHTML = '<div class="state-message">' + escapeHtml(message) + '</div>';
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function escapeAttr(str) { return escapeHtml(str); }
 </script>
-
-<script src="https://static.line-scdn.net/line_web_login/19f167ada5c/dist/lap_optout_check.min.js"></script>
-
-
 
 </body>
 </html>

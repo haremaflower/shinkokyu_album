@@ -215,7 +215,6 @@
   <div class="state-message">読み込み中...</div>
 </div>
 
-<!-- 🔍 拡大表示用モーダル構造 -->
 <div id="photoModal" onclick="closeModal()">
   <img id="modalImg" src="" alt="拡大写真">
 </div>
@@ -227,7 +226,8 @@
   var flowerPhotoMap = {};
 
   document.addEventListener('DOMContentLoaded', function () {
-    liff.init({ liffId: '2006939942-X05w88bN' }).then(function () {
+    // ★正しいLIFF IDに修正しました
+    liff.init({ liffId: '2010604310-qrcPhB5E' }).then(function () {
       if (liff.isLoggedIn()) {
         var context = liff.getContext();
         currentUserId = context ? context.userId : 'W_SAMPLE_USER_ID_9999';

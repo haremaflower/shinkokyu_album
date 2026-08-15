@@ -664,7 +664,7 @@
     var navNext = showNav ? '<button class="flower-nav" onclick="navigateFlowerPhoto(' + albumIndex + ', 1)">&rsaquo;</button>' : '';
 
     var innerHtml = photoUrl
-      ? '<div class="flower-photo-inner"><img src="' + escapeAttr(cldResize(photoUrl, 300)) + '" alt="' + escapeAttr(flowerName) + '"><span class="caption">' + escapeHtml(flowerName) + '</span></div>'
+      ? '<div class="flower-photo-inner"><img src="' + escapeAttr(photoUrl) + '" alt="' + escapeAttr(flowerName) + '"><span class="caption">' + escapeHtml(flowerName) + '</span></div>'
       : '<div class="no-photo">' + escapeHtml(flowerName) + 'の写真は準備中です</div>';
 
     newPanel.innerHTML = navPrev + innerHtml + navNext;

@@ -501,9 +501,10 @@
   var GAS_API_URL = 'https://script.google.com/macros/s/AKfycbywcBgmXuudaIz09Zj8bxvBvy9tbi0QGsmdNioEb_SNvWT8x789yleolYqEqtHQgzrUYg/exec';
   var flowerPhotoMap = {};
 
-  function cldResize(url, width) {
+  function cldResize(url, width, square) {
     if (!url || url.indexOf('res.cloudinary.com') === -1) return url;
-    return url.replace(/w_\d+/, 'w_' + width);
+    var replacement = square ? ('c_fill,ar_1:1,w_' + width) : ('w_' + width);
+    return url.replace(/w_\d+/, replacement);
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -590,7 +591,7 @@
       if (photos.length > 1) {
         photoHtml += '<div class="photo-sub-row">';
         for (var i = 1; i < photos.length; i++) {
-          photoHtml += '<div class="photo-sub"><img src="' + escapeAttr(cldResize(photos[i], 300)) + '" alt="" loading="lazy" onclick="openPhotoModal(' + albumIndex + ', ' + i + ')"></div>';
+          photoHtml += '<div class="photo-sub"><img src="' + escapeAttr(cldResize(photos[i], 300, true)) + '" alt="" loading="lazy" onclick="openPhotoModal(' + albumIndex + ', ' + i + ')"></div>';
         }
         photoHtml += '</div>';
       }

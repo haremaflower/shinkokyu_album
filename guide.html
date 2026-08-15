@@ -122,7 +122,14 @@
     background: var(--olive); color: #ffffff; font-size: 11px; letter-spacing: 0.08em;
     padding: 9px 0; border-radius: 3px; text-decoration: none;
   }
-  .teaser-reserve-btn.is-disabled{ background: var(--beige-line); color: var(--text-soft); }
+  .teaser-priority-tag{
+    display: inline-flex; align-items: center; gap: 5px;
+    margin-top: 14px; font-size: 10px; letter-spacing: 0.06em;
+    padding: 6px 12px; border-radius: 20px;
+    border: 1px solid var(--terracotta); color: var(--terracotta);
+    background: rgba(201,155,122,0.08);
+  }
+  .teaser-priority-tag::before{ content: '\25C6'; font-size: 7px; }
   .teaser-note{
     font-size: 11.5px; color: var(--olive-dark); font-weight: 500; margin-top: 14px; line-height: 1.9;
     background: var(--beige); padding: 12px 14px; border-radius: 4px;
@@ -560,7 +567,7 @@
     if (isConfirmed) {
       reserveHtml = item.reservationUrl
         ? '<a class="teaser-reserve-btn" href="' + escapeAttr(item.reservationUrl) + '" target="_blank" rel="noopener">予約する</a>'
-        : '<span class="teaser-reserve-btn is-disabled">パス会員先行案内中</span>';
+        : '<span class="teaser-priority-tag">パス会員先行案内中</span>';
     }
 
     return (

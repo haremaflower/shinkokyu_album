@@ -335,9 +335,10 @@
   var ADMIN_KEY = 'harema2026';
 
   // ★Cloudinary画像を、表示用途に応じたサイズに変換して読み込みを軽くする
-  function cldResize(url, width) {
+  function cldResize(url, width, square) {
     if (!url || url.indexOf('res.cloudinary.com') === -1) return url;
-    return url.replace(/w_\d+/, 'w_' + width);
+    var replacement = square ? ('c_fill,ar_1:1,w_' + width) : ('w_' + width);
+    return url.replace(/w_\d+/, replacement);
   }
 
   var currentUserId = '';
@@ -489,7 +490,7 @@
     if (isConfirmed) {
       reserveHtml = item.reservationUrl
         ? '<a class="teaser-reserve-btn" href="' + escapeAttr(item.reservationUrl) + '" target="_blank" rel="noopener">予約する</a>'
-        : '<span class="teaser-priority-tag">予約受付準備中</span>';
+        : '<span class="teaser-priority-tag">パス会員先行案内中</span>';
     }
 
     return (
@@ -540,7 +541,7 @@
       if (photos.length > 1) {
         photoHtml += '<div class="photo-sub-row">';
         for (var i = 1; i < photos.length; i++) {
-          photoHtml += '<div class="photo-sub"><img src="' + escapeAttr(cldResize(photos[i], 300)) + '" alt="" loading="lazy" onclick="openPhotoModal(' + albumIndex + ', ' + i + ')"></div>';
+          photoHtml += '<div class="photo-sub"><img src="' + escapeAttr(cldResize(photos[i], 300, true)) + '" alt="" loading="lazy" onclick="openPhotoModal(' + albumIndex + ', ' + i + ')"></div>';
         }
         photoHtml += '</div>';
       }

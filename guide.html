@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>花と、月1の深呼吸 ｜ ご案内</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="晴れ間の花のワークショップ「花と、月1の深呼吸」のご案内。次回テーマ、過去の回のご紹介、フラワープレミアムパスについて。">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg: #faf6ee;
+    --text: #453b30;
+    --text-soft: #8a7f6f;
+    --beige: #f2ecdf;
+    --beige-line: #e3d9c4;
+    --line: #e6ded0;
+    --olive: #7c8768;
+    --olive-dark: #626d54;
+    --terracotta: #c99b7a;
+    --white: #ffffff;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin: 0; padding: 0;
+    background: var(--bg); color: var(--text);
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.02em;
+  }
+
+  body{
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(124,135,104,0.04), transparent 40%),
+      radial-gradient(circle at 85% 60%, rgba(201,155,122,0.05), transparent 45%);
+  }
+
+  a{ color: inherit; }
+
+  /* ---- header ---- */
+  header{
+    padding: 52px 24px 36px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  header::before{
+    content: '';
+    position: absolute;
+    top: -20px; left: -20px;
+    width: 140px; height: 140px;
+    opacity: 0.35;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><g fill='none' stroke='%23453b30' stroke-width='1.2'><path d='M100 40 C120 60 120 90 100 110 C80 90 80 60 100 40Z'/><path d='M100 40 C80 55 60 55 45 40'/><path d='M100 110 C110 130 130 140 150 135'/><circle cx='100' cy='75' r='6'/></g></svg>") no-repeat center / contain;
+  }
+  header .brand{
+    font-size: 12px; letter-spacing: 0.25em; color: var(--olive-dark);
+    margin-bottom: 18px; position: relative;
+  }
+  header h1{
+    font-family: 'Shippori Mincho', serif; font-weight: 500;
+    font-size: 24px; margin: 0 0 12px; letter-spacing: 0.1em;
+    color: var(--text); position: relative; line-height: 1.5;
+  }
+  header .tagline{
+    font-size: 12.5px; color: var(--text-soft); font-weight: 300;
+    position: relative; line-height: 1.9;
+  }
+
+  .container{ max-width: 480px; margin: 0 auto; padding: 40px 20px 90px; }
+
+  .section-heading{ display: flex; align-items: center; gap: 14px; margin: 8px 0 22px; }
+  .section-heading .en{ font-size: 10px; letter-spacing: 0.25em; color: var(--olive-dark); white-space: nowrap; }
+  .section-heading .rule{ flex: 1; height: 1px; background: var(--line); }
+
+  /* ---- hero ---- */
+  .hero{ margin-bottom: 60px; text-align: center; }
+  .hero p{ font-size: 13px; line-height: 2; color: var(--text); font-weight: 300; margin: 0 0 28px; }
+  .hero .signature{ font-size: 11px; color: var(--text-soft); line-height: 1.9; font-weight: 300; }
+
+  .cta-row{ display: flex; flex-direction: column; gap: 10px; margin-top: 26px; }
+  .btn{
+    display: block; text-align: center; text-decoration: none;
+    font-size: 12.5px; letter-spacing: 0.1em; padding: 14px 0; border-radius: 3px;
+  }
+  .btn-primary{ background: var(--olive); color: #fff; }
+  .btn-primary:active{ background: var(--olive-dark); }
+  .btn-ghost{ background: transparent; color: var(--olive-dark); border: 1px solid var(--olive); }
+
+  /* ---- upcoming themes (teaser cards, reused pattern) ---- */
+  .teaser-section{ margin-bottom: 64px; }
+  .teaser-lead{ font-size: 12px; color: var(--text-soft); line-height: 1.9; margin-bottom: 24px; font-weight: 300; }
+  .teaser-scroll{
+    display: flex; gap: 14px; overflow-x: auto; padding-bottom: 8px;
+    margin: 0 -20px; padding-left: 20px; padding-right: 20px;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  }
+  .teaser-scroll::-webkit-scrollbar{ display: none; }
+  .teaser-card{
+    flex: 0 0 auto; width: 200px; scroll-snap-align: start;
+    border-radius: 4px; padding: 22px 18px; position: relative; overflow: hidden;
+  }
+  .teaser-card.is-confirmed{ background: #ffffff; border: 1px solid var(--beige-line); }
+  .teaser-card.is-teaser{ background: var(--beige); border: 1px solid transparent; }
+  .teaser-vol{ font-size: 10px; letter-spacing: 0.15em; color: var(--text-soft); margin-bottom: 10px; }
+  .teaser-month{ font-size: 11px; letter-spacing: 0.1em; color: var(--terracotta); margin-bottom: 14px; }
+  .teaser-title{
+    font-family: 'Shippori Mincho', serif; font-size: 15.5px; line-height: 1.6;
+    font-weight: 500; margin-bottom: 16px; min-height: 48px; color: var(--text);
+  }
+  .teaser-status{ font-size: 9.5px; letter-spacing: 0.12em; padding: 4px 10px; border-radius: 2px; display: inline-block; }
+  .teaser-status.confirmed{ background: var(--olive); color: #ffffff; }
+  .teaser-status.teaser{ background: transparent; border: 1px solid var(--terracotta); color: var(--terracotta); }
+  .teaser-reserve-btn{
+    display: block; text-align: center; margin-top: 14px;
+    background: var(--olive); color: #ffffff; font-size: 11px; letter-spacing: 0.08em;
+    padding: 9px 0; border-radius: 3px; text-decoration: none;
+  }
+  .teaser-reserve-btn.is-disabled{ background: var(--beige-line); color: var(--text-soft); }
+  .teaser-note{
+    font-size: 10.5px; color: var(--text-soft); font-weight: 300; margin-top: 12px; line-height: 1.8;
+  }
+
+  /* ---- archive (sample works gallery) ---- */
+  .archive-section{ margin-bottom: 64px; }
+  .archive-lead{ font-size: 12px; color: var(--text-soft); line-height: 1.9; margin-bottom: 28px; font-weight: 300; }
+  .album-card{ margin-bottom: 48px; }
+  .album-card:not(:last-child){ padding-bottom: 40px; border-bottom: 1px solid var(--line); }
+  .album-meta{ display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
+  .album-vol{
+    font-size: 10.5px; letter-spacing: 0.12em; color: var(--olive-dark);
+    background: rgba(124,135,104,0.1); padding: 3px 9px; border-radius: 2px;
+  }
+  .album-date{ font-size: 11px; letter-spacing: 0.15em; color: var(--text-soft); }
+  .album-title{
+    font-family: 'Shippori Mincho', serif; font-size: 17px; font-weight: 500;
+    margin: 4px 0 18px; letter-spacing: 0.05em; line-height: 1.5; color: var(--text);
+  }
+  .photo-group{ margin-bottom: 16px; }
+  .photo-main{
+    width: 100%; overflow: hidden; border-radius: 4px; background: #eee;
+    border: 1px solid var(--beige-line); margin-bottom: 8px;
+  }
+  .photo-main img{ display: block; width: 100%; height: auto; object-fit: cover; }
+  .photo-sub-row{ display: flex; gap: 8px; }
+  .photo-sub{
+    flex: 1; overflow: hidden; border-radius: 4px; background: #eee;
+    border: 1px solid var(--beige-line); aspect-ratio: 1 / 1;
+  }
+  .photo-sub img{ display: block; width: 100%; height: 100%; object-fit: cover; }
+  .flower-tags{ display: flex; flex-wrap: wrap; gap: 8px; }
+  .flower-tag{
+    font-size: 11px; padding: 5px 12px; border: 1px solid var(--olive);
+    border-radius: 2px; color: var(--olive-dark); letter-spacing: 0.06em; background: #ffffff;
+  }
+  .archive-more{
+    text-align: center; font-size: 11.5px; color: var(--text-soft); font-weight: 300; line-height: 1.9;
+  }
+
+  /* ---- premium pass ---- */
+  .pass-section{ margin-bottom: 64px; }
+  .pass-lead{ font-size: 13px; line-height: 2; color: var(--text); font-weight: 300; margin-bottom: 30px; }
+  .pass-lead .accent{ font-family: 'Shippori Mincho', serif; color: var(--olive-dark); }
+
+  .benefit-list{ display: flex; flex-direction: column; gap: 14px; margin-bottom: 40px; }
+  .benefit-item{
+    display: flex; gap: 16px; background: #ffffff; border: 1px solid var(--beige-line);
+    border-radius: 4px; padding: 20px 18px;
+  }
+  .benefit-num{
+    font-family: 'Shippori Mincho', serif; font-size: 20px; color: var(--terracotta);
+    line-height: 1; flex-shrink: 0; padding-top: 2px;
+  }
+  .benefit-body .benefit-title{
+    font-size: 13.5px; font-weight: 500; color: var(--text); margin-bottom: 6px; letter-spacing: 0.03em;
+  }
+  .benefit-body .benefit-desc{
+    font-size: 11.5px; color: var(--text-soft); line-height: 1.8; font-weight: 300;
+  }
+
+  /* pricing */
+  .price-block{ margin-bottom: 40px; }
+  .price-note-top{
+    font-size: 10.5px; color: var(--text-soft); font-weight: 300; line-height: 1.8;
+    margin-bottom: 18px; text-align: center;
+  }
+  .price-cards{ display: flex; flex-direction: column; gap: 12px; }
+  .price-card{
+    background: #ffffff; border: 1px solid var(--beige-line); border-radius: 4px;
+    padding: 20px 20px;
+  }
+  .price-card.is-featured{ border-color: var(--olive); background: var(--beige); }
+  .price-card-top{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .price-card-label{ font-size: 12px; letter-spacing: 0.06em; color: var(--text); font-weight: 500; }
+  .price-card-flag{
+    font-size: 9.5px; letter-spacing: 0.1em; padding: 3px 9px; border-radius: 2px;
+    background: var(--olive); color: #fff;
+  }
+  .price-figures{ display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .price-old{ font-size: 12px; color: var(--text-soft); text-decoration: line-through; font-weight: 300; }
+  .price-new{ font-family: 'Shippori Mincho', serif; font-size: 22px; color: var(--text); }
+  .price-new .yen{ font-size: 13px; margin-right: 2px; }
+  .price-card-caption{ font-size: 10.5px; color: var(--text-soft); font-weight: 300; margin-top: 8px; line-height: 1.7; }
+
+  .price-note-bottom{
+    font-size: 10.5px; color: var(--text-soft); font-weight: 300; line-height: 1.9;
+    margin-top: 16px; padding: 14px 16px; background: var(--beige); border-radius: 4px;
+  }
+
+  /* rules */
+  .rule-list{ list-style: none; margin: 0 0 40px; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+  .rule-list li{ font-size: 12.5px; line-height: 1.9; color: var(--text); font-weight: 300; padding-left: 20px; position: relative; }
+  .rule-list li::before{
+    content: '｜'; position: absolute; left: 0; color: var(--olive); font-weight: 500;
+  }
+  .rule-list strong{ font-weight: 500; }
+
+  /* faq */
+  .faq-list{ display: flex; flex-direction: column; gap: 18px; margin-bottom: 40px; }
+  .faq-item .q{
+    font-size: 12.5px; font-weight: 500; color: var(--text); margin-bottom: 8px;
+    display: flex; gap: 8px;
+  }
+  .faq-item .q .mark{ color: var(--terracotta); flex-shrink: 0; }
+  .faq-item .a{
+    font-size: 11.5px; line-height: 1.9; color: var(--text-soft); font-weight: 300; padding-left: 20px;
+  }
+
+  .pass-cta{ text-align: center; }
+  .pass-cta .note-link{
+    display: block; margin-top: 14px; font-size: 11px; color: var(--text-soft); font-weight: 300;
+  }
+
+  .state-message{
+    text-align: center; padding: 40px 20px; color: var(--text-soft);
+    font-size: 12px; line-height: 1.9; font-weight: 300;
+  }
+
+  footer{ text-align: center; padding: 44px 20px 60px; font-size: 10px; letter-spacing: 0.15em; color: var(--text-soft); }
+  footer .sub{ margin-top: 10px; font-size: 10px; letter-spacing: 0.08em; }
+  footer a{ text-decoration: none; color: var(--olive-dark); }
+
+  @media (min-width: 520px){
+    header h1{ font-size: 26px; }
+    .album-title{ font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">HANA TO TSUKI ICHI NO SHINKOKYU</div>
+  <h1>花と、月1の深呼吸</h1>
+  <div class="tagline">忙しい日々のなかに、月に一度、<br>お花と向き合う静かな時間を。</div>
+</header>
+
+<div class="container">
+
+  <section class="hero">
+    <p>
+      東京・世田谷にて、少人数制の花のワークショップを開いています。<br>
+      平日はIT企業でマネージャーとして働きながら、<br>
+      週末はお花を通して「深呼吸できる時間」をお届けしています。
+    </p>
+    <div class="signature">屋号：晴れ間　主宰：ナオ</div>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://lin.ee/aLZfSMk" target="_blank" rel="noopener">公式LINEを追加する</a>
+      <a class="btn btn-ghost" href="#pass">フラワープレミアムパスについて見る</a>
+    </div>
+  </section>
+
+  <section class="teaser-section" id="upcoming">
+    <div class="section-heading"><span class="en">UPCOMING THEMES</span><span class="rule"></span></div>
+    <div class="teaser-lead">これから先の季節に、どんな出会いが待っているか。<br>みなさまと季節を楽しめることを楽しみにしています。</div>
+    <div id="upcomingArea"><div class="state-message">読み込み中です&hellip;</div></div>
+  </section>
+
+  <section class="archive-section" id="archive">
+    <div class="section-heading"><span class="en">ARCHIVE</span><span class="rule"></span></div>
+    <div class="archive-lead">これまでの回で、みなさまが持ち帰られた作品の一部をご紹介します。<br>初心者の方がほとんどで、お一人でのご参加が中心です。</div>
+    <div id="archiveArea"><div class="state-message">読み込み中です&hellip;</div></div>
+  </section>
+
+  <section class="pass-section" id="pass">
+    <div class="section-heading"><span class="en">PREMIUM PASS</span><span class="rule"></span></div>
+    <p class="pass-lead">
+      季節の花は、一期一会。<br>
+      <span class="accent">「確実に、その時間を確保する」</span>ための、<br>
+      パス会員さま限定のご案内です。
+    </p>
+
+    <div class="benefit-list">
+      <div class="benefit-item">
+        <div class="benefit-num">01</div>
+        <div class="benefit-body">
+          <div class="benefit-title">一般募集前の「最優先」日程調整</div>
+          <div class="benefit-desc">一般募集の前に、公式LINEで優先的にスケジュールをご相談・確保いただけます。人気の回も、先に予定を押さえることができます。</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-num">02</div>
+        <div class="benefit-body">
+          <div class="benefit-title">ずっと続く「優待価格」</div>
+          <div class="benefit-desc">通常価格より優待価格でご案内。今後価格改定があった場合も、パスを継続いただいている方には優待価格でご案内します。</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-num">03</div>
+        <div class="benefit-body">
+          <div class="benefit-title">スペシャル企画へのご招待</div>
+          <div class="benefit-desc">ティー・ランチ付きワークショップや特別メニューなど、パス会員さま限定の「もっとお花を楽しむ企画」を不定期で開催します。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="price-block">
+      <div class="section-heading"><span class="en">PRICE</span><span class="rule"></span></div>
+      <div class="price-note-top">価格改定を予定しております。時期の詳細は公式LINEにてご案内します。</div>
+      <div class="price-cards">
+        <div class="price-card">
+          <div class="price-card-top">
+            <span class="price-card-label">単発参加（定価）</span>
+          </div>
+          <div class="price-figures">
+            <span class="price-old">現行 ¥8,800</span>
+            <span class="price-new"><span class="yen">¥</span>11,000</span>
+          </div>
+          <div class="price-card-caption">1回ごとのお申込み。どなたでもご参加いただけます。</div>
+        </div>
+
+        <div class="price-card is-featured">
+          <div class="price-card-top">
+            <span class="price-card-label">パス会員（新規の方）</span>
+            <span class="price-card-flag">おすすめ</span>
+          </div>
+          <div class="price-figures">
+            <span class="price-old">現行 ¥8,000</span>
+            <span class="price-new"><span class="yen">¥</span>10,000</span>
+          </div>
+          <div class="price-card-caption">定価より優待。優先日程調整・特別企画もご利用いただけます。</div>
+        </div>
+
+        <div class="price-card">
+          <div class="price-card-top">
+            <span class="price-card-label">パス会員（既にご登録の方）</span>
+          </div>
+          <div class="price-figures">
+            <span class="price-new"><span class="yen">¥</span>9,000</span>
+          </div>
+          <div class="price-card-caption">価格改定後も、継続特典として優待価格を据え置きます。</div>
+        </div>
+      </div>
+      <div class="price-note-bottom">
+        「いきなり3回分をまとめて」は少し勇気がいる、という方向けに、初回は単発価格でご参加いただけます。ご参加後、差額分のお支払いでパスへの切り替えも可能です。
+      </div>
+    </div>
+
+    <div class="section-heading"><span class="en">HOW IT WORKS</span><span class="rule"></span></div>
+    <ul class="rule-list">
+      <li><strong>内容：</strong>3回分セットでのご案内です。初回のみ単発価格でお試しいただき、その後まとめて残り2回分をお申込みいただくことも可能です。</li>
+      <li><strong>有効期限：</strong>初回参加月から6か月後の月末まで。</li>
+      <li><strong>自動継続：</strong>3回ご参加後も、3か月に1回以上お越しいただければ、次の3か月間も自動的にパスが継続されます。ご自身のペースで、季節ごとの「深呼吸」を続けていただけます。</li>
+    </ul>
+
+    <div class="section-heading"><span class="en">FAQ</span><span class="rule"></span></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="q"><span class="mark">Q.</span>急に行けなくなった場合は？</div>
+        <div class="a">16日前まではキャンセル可能です。以降は、完成品または花材のご自宅発送からお選びいただけます（配送料別途）。急なご予定が入っても、ご自宅でお花を楽しんでいただけます。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q"><span class="mark">Q.</span>一人参加や初心者で浮かないか心配です</div>
+        <div class="a">8割の方が初心者、ほとんどが お一人でのご参加です。「お花が好き」という共通の想いがある方ばかりなので、自然と穏やかな空気が流れています。私がみなさんの間に入って、心地よく過ごせるようサポートいたします。</div>
+      </div>
+      <div class="faq-item">
+        <div class="q"><span class="mark">Q.</span>いきなり3回分をまとめて払うのは、少し勇気がいります</div>
+        <div class="a">まずは一度、雰囲気を確かめてみたいという方向けに、初回は単発価格でご参加いただけます。ご参加後、「これからも通いたい」と感じていただけたら、差額分のお支払いでパスに切り替えいただけます。</div>
+      </div>
+    </div>
+
+    <div class="pass-cta">
+      <a class="btn btn-primary" href="https://lin.ee/aLZfSMk" target="_blank" rel="noopener">公式LINEを追加して相談する</a>
+      <a class="note-link" href="https://note.com/nao_hana15/n/nd51f21d210b2" target="_blank" rel="noopener">パスの詳細をnoteで読む &rarr;</a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  &mdash; あなただけの、花と深呼吸した時間の記録 &mdash;
+  <div class="sub"><a href="https://www.instagram.com/nao_hana15" target="_blank" rel="noopener">Instagram</a> ／ <a href="https://haremaflower.base.shop" target="_blank" rel="noopener">オンラインショップ</a></div>
+</footer>
+
+<script>
+  // ↓↓↓ ★index.html と同じGASウェブアプリURLに書き換えてください ↓↓↓
+  var GAS_API_URL = 'https://script.google.com/macros/s/AKfycbywcBgmXuudaIz09Zj8bxvBvy9tbi0QGsmdNioEb_SNvWT8x789yleolYqEqtHQgzrUYg/exec';
+
+  document.addEventListener('DOMContentLoaded', function () {
+    fetch(GAS_API_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'getPublicData' }),
+      headers: { 'Content-Type': 'text/plain' }
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (data) { renderPublicData(data); })
+      .catch(function (err) {
+        document.getElementById('upcomingArea').innerHTML = '<div class="state-message">読み込みに失敗しました。時間をおいて再度お試しください。</div>';
+        document.getElementById('archiveArea').innerHTML = '';
+        console.error(err);
+      });
+  });
+
+  function renderPublicData(data) {
+    var upcomingArea = document.getElementById('upcomingArea');
+    var archiveArea = document.getElementById('archiveArea');
+
+    if (data.error) {
+      upcomingArea.innerHTML = '<div class="state-message">' + escapeHtml(data.error) + '</div>';
+      archiveArea.innerHTML = '';
+      return;
+    }
+
+    // ---- UPCOMING THEMES ----
+    var themes = data.upcomingThemes || [];
+    if (themes.length === 0) {
+      upcomingArea.innerHTML = '<div class="state-message">次回のご案内は準備中です。公式LINEにてお知らせします。</div>';
+    } else {
+      upcomingArea.innerHTML = '<div class="teaser-scroll">' + themes.map(buildTeaserCard).join('') + '</div>' +
+        '<div class="teaser-note">※パス会員さまは一般募集前に優先してご案内しています。まだの方は<a href="#pass">こちら</a>をご覧ください。</div>';
+    }
+
+    // ---- ARCHIVE ----
+    var albums = data.albums || [];
+    if (albums.length === 0) {
+      archiveArea.innerHTML = '<div class="state-message">準備中です。</div>';
+    } else {
+      var shown = albums.slice(0, 3);
+      archiveArea.innerHTML = shown.map(buildAlbumCard).join('') +
+        '<div class="archive-more">ご参加いただくと、あなたの作品もこのように記録として残ります。</div>';
+    }
+  }
+
+  function buildTeaserCard(item) {
+    var isConfirmed = item.status === 'confirmed';
+    var statusLabel = isConfirmed
+      ? (item.scheduleDate ? '日程確定：' + escapeHtml(item.scheduleDate) : '日程確定')
+      : 'テーマ先行公開';
+    var cardClass = isConfirmed ? 'is-confirmed' : 'is-teaser';
+    var statusClass = isConfirmed ? 'confirmed' : 'teaser';
+
+    var reserveHtml = '';
+    if (isConfirmed) {
+      reserveHtml = item.reservationUrl
+        ? '<a class="teaser-reserve-btn" href="' + escapeAttr(item.reservationUrl) + '" target="_blank" rel="noopener">予約する</a>'
+        : '<span class="teaser-reserve-btn is-disabled">予約受付準備中</span>';
+    }
+
+    return (
+      '<div class="teaser-card ' + cardClass + '">' +
+        '<div class="teaser-vol">' + escapeHtml(item.volNumber) + '</div>' +
+        '<div class="teaser-month">' + escapeHtml(item.monthLabel) + '</div>' +
+        '<div class="teaser-title">' + escapeHtml(item.themeTitle) + '</div>' +
+        '<span class="teaser-status ' + statusClass + '">' + statusLabel + '</span>' +
+        reserveHtml +
+      '</div>'
+    );
+  }
+
+  function buildAlbumCard(album) {
+    var photos = album.photos || [];
+    var photoHtml = '';
+    if (photos.length > 0) {
+      photoHtml += '<div class="photo-group">';
+      photoHtml += '<div class="photo-main"><img src="' + escapeAttr(photos[0]) + '" alt="' + escapeAttr(album.themeTitle) + '" loading="lazy"></div>';
+      if (photos.length > 1) {
+        photoHtml += '<div class="photo-sub-row">';
+        for (var i = 1; i < photos.length; i++) {
+          photoHtml += '<div class="photo-sub"><img src="' + escapeAttr(photos[i]) + '" alt="" loading="lazy"></div>';
+        }
+        photoHtml += '</div>';
+      }
+      photoHtml += '</div>';
+    }
+
+    var flowerTagsHtml = (album.flowers || []).map(function (f) {
+      return '<span class="flower-tag">' + escapeHtml(f) + '</span>';
+    }).join('');
+
+    return (
+      '<div class="album-card">' +
+        '<div class="album-meta">' +
+          (album.volNumber ? '<span class="album-vol">' + escapeHtml(album.volNumber) + '</span>' : '<span></span>') +
+          '<span class="album-date">' + escapeHtml(album.visitDateFormatted || '') + '</span>' +
+        '</div>' +
+        '<div class="album-title">' + escapeHtml(album.themeTitle || '') + '</div>' +
+        photoHtml +
+        (flowerTagsHtml ? '<div class="flower-tags">' + flowerTagsHtml + '</div>' : '') +
+      '</div>'
+    );
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function escapeAttr(str) { return escapeHtml(str); }
+</script>
+
+</body>
+</html>

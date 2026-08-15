@@ -7,6 +7,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://res.cloudinary.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
 
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -177,6 +178,16 @@
   }
   .teaser-heart.active{ opacity: 1; color: #b5765f; transform: scale(1.1); }
 
+  .teaser-reserve-btn{
+    display: block; text-align: center; margin-top: 14px;
+    background: var(--olive); color: #ffffff; font-size: 11px; letter-spacing: 0.08em;
+    padding: 9px 0; border-radius: 3px; text-decoration: none;
+  }
+  .teaser-reserve-btn:active{ background: var(--olive-dark); }
+  .teaser-reserve-btn.is-disabled{
+    background: var(--beige-line); color: var(--text-soft); cursor: default;
+  }
+
   .album-card{ margin-bottom: 56px; }
   .album-card:not(:last-child){ padding-bottom: 48px; border-bottom: 1px solid var(--line); }
   .album-meta{ display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px; }
@@ -265,7 +276,7 @@
   }
   .flower-photo-inner{ display: flex; align-items: center; gap: 12px; flex: 1; }
   .flower-photo-inner img{
-    width: 88px; height: 88px; border-radius: 4px; object-fit: cover;
+    width: 150px; height: 150px; border-radius: 4px; object-fit: cover;
     flex-shrink: 0; border: 1px solid var(--beige-line);
   }
   .flower-photo-inner .caption{ font-size: 12px; color: var(--text-soft); font-weight: 300; }
@@ -312,8 +323,17 @@
   // ↓↓↓ ★ここにあなたのGASのウェブアプリURLを上書きしてください ↓↓↓
   var GAS_API_URL = 'https://script.google.com/macros/s/AKfycbywcBgmXuudaIz09Zj8bxvBvy9tbi0QGsmdNioEb_SNvWT8x789yleolYqEqtHQgzrUYg/exec';
 
+  // ★予約フォームURLは、workshop_scheduleシートのF列（reservation_url）で回ごとに管理します。
+  //   ここでの一律指定はしません（複数回同時受付があるため）。
+
   // ★管理者テスト用の合言葉（このURLを他人に共有しないでください）
   var ADMIN_KEY = 'harema2026';
+
+  // ★Cloudinary画像を、表示用途に応じたサイズに変換して読み込みを軽くする
+  function cldResize(url, width) {
+    if (!url || url.indexOf('res.cloudinary.com') === -1) return url;
+    return url.replace(/w_\d+/, 'w_' + width);
+  }
 
   var currentUserId = '';
   var currentUserName = '';
@@ -456,13 +476,25 @@
     var statusClass = isConfirmed ? 'confirmed' : 'teaser';
     var isActive = interestedVols.indexOf(item.volNumber) !== -1;
 
+    var heartHtml = isConfirmed
+      ? ''
+      : '<button class="teaser-heart' + (isActive ? ' active' : '') + '" data-vol="' + escapeAttr(item.volNumber) + '" onclick="handleHeartClick(this)">' + (isActive ? '♥' : '♡') + '</button>';
+
+    var reserveHtml = '';
+    if (isConfirmed) {
+      reserveHtml = item.reservationUrl
+        ? '<a class="teaser-reserve-btn" href="' + escapeAttr(item.reservationUrl) + '" target="_blank" rel="noopener">予約する</a>'
+        : '<span class="teaser-reserve-btn is-disabled">パス会員先行案内中</span>';
+    }
+
     return (
       '<div class="teaser-card ' + cardClass + '">' +
-        '<button class="teaser-heart' + (isActive ? ' active' : '') + '" data-vol="' + escapeAttr(item.volNumber) + '" onclick="handleHeartClick(this)">' + (isActive ? '♥' : '♡') + '</button>' +
+        heartHtml +
         '<div class="teaser-vol">' + escapeHtml(item.volNumber) + '</div>' +
         '<div class="teaser-month">' + escapeHtml(item.monthLabel) + '</div>' +
         '<div class="teaser-title">' + escapeHtml(item.themeTitle) + '</div>' +
         '<span class="teaser-status ' + statusClass + '">' + statusLabel + '</span>' +
+        reserveHtml +
       '</div>'
     );
   }
@@ -499,11 +531,11 @@
     var photoHtml = '';
     if (photos.length > 0) {
       photoHtml += '<div class="photo-group">';
-      photoHtml += '<div class="photo-main"><img src="' + escapeAttr(photos[0]) + '" alt="' + escapeAttr(album.themeTitle) + '" loading="lazy" onclick="openPhotoModal(' + albumIndex + ', 0)"></div>';
+      photoHtml += '<div class="photo-main"><img src="' + escapeAttr(cldResize(photos[0], 700)) + '" alt="' + escapeAttr(album.themeTitle) + '" loading="lazy" onclick="openPhotoModal(' + albumIndex + ', 0)"></div>';
       if (photos.length > 1) {
         photoHtml += '<div class="photo-sub-row">';
         for (var i = 1; i < photos.length; i++) {
-          photoHtml += '<div class="photo-sub"><img src="' + escapeAttr(photos[i]) + '" alt="" loading="lazy" onclick="openPhotoModal(' + albumIndex + ', ' + i + ')"></div>';
+          photoHtml += '<div class="photo-sub"><img src="' + escapeAttr(cldResize(photos[i], 300)) + '" alt="" loading="lazy" onclick="openPhotoModal(' + albumIndex + ', ' + i + ')"></div>';
         }
         photoHtml += '</div>';
       }
@@ -583,7 +615,7 @@
     var navNext = showNav ? '<button class="flower-nav" onclick="navigateFlowerPhoto(' + albumIndex + ', 1)">&rsaquo;</button>' : '';
 
     var innerHtml = photoUrl
-      ? '<div class="flower-photo-inner"><img src="' + escapeAttr(photoUrl) + '" alt="' + escapeAttr(flowerName) + '"><span class="caption">' + escapeHtml(flowerName) + '</span></div>'
+      ? '<div class="flower-photo-inner"><img src="' + escapeAttr(cldResize(photoUrl, 300)) + '" alt="' + escapeAttr(flowerName) + '"><span class="caption">' + escapeHtml(flowerName) + '</span></div>'
       : '<div class="no-photo">' + escapeHtml(flowerName) + 'の写真は準備中です</div>';
 
     newPanel.innerHTML = navPrev + innerHtml + navNext;
@@ -611,7 +643,7 @@
 
   function updatePhotoModal_() {
     var photos = (window.__albumPhotosStore && window.__albumPhotosStore[modalAlbumIndex]) || [];
-    document.getElementById('photoModalImg').src = photos[modalPhotoIndex] || '';
+    document.getElementById('photoModalImg').src = cldResize(photos[modalPhotoIndex], 1200) || '';
 
     var showNav = photos.length > 1;
     document.querySelector('#photoModal .modal-prev').style.display = showNav ? 'flex' : 'none';

@@ -257,7 +257,9 @@
   #photoModal.is-open{ display: flex; }
   #photoModal img{
     max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 2px;
+    transition: filter 0.25s ease;
   }
+  #photoModal img.is-loading{ filter: blur(10px); }
   #photoModal .modal-close{
     position: absolute; top: 16px; right: 16px; background: none; border: none;
     color: #fff; font-size: 30px; line-height: 1; cursor: pointer; padding: 6px;
@@ -415,6 +417,7 @@
 
     // 写真拡大モーダル・花図鑑ナビゲーション用に、アルバムごとの写真・花リストを保持
     window.__albumPhotosStore = (data.albums || []).map(function (a) { return a.photos || []; });
+    window.__albumThumbStore = [];
     window.__albumFlowersStore = (data.albums || []).map(function (a) { return a.flowers || []; });
 
     if (data.isSample) {
@@ -535,18 +538,29 @@
   function buildAlbumCard(album, albumIndex) {
     var photos = album.photos || [];
     var photoHtml = '';
+    var thumbSrcs = [];
     if (photos.length > 0) {
+      var subCount = photos.length - 1;
+      var mainW = 800;
+      var subW = subCount === 1 ? 700 : 380;
+
+      var mainThumb = cldResize(photos[0], mainW);
+      thumbSrcs[0] = mainThumb;
+
       photoHtml += '<div class="photo-group">';
-      photoHtml += '<div class="photo-main"><img src="' + escapeAttr(cldResize(photos[0], 700)) + '" alt="' + escapeAttr(album.themeTitle) + '" loading="lazy" onclick="openPhotoModal(' + albumIndex + ', 0)"></div>';
+      photoHtml += '<div class="photo-main"><img src="' + escapeAttr(mainThumb) + '" alt="' + escapeAttr(album.themeTitle) + '" loading="lazy" onclick="openPhotoModal(' + albumIndex + ', 0)" ontouchstart="preloadFullPhoto(' + albumIndex + ', 0)" onmousedown="preloadFullPhoto(' + albumIndex + ', 0)"></div>';
       if (photos.length > 1) {
         photoHtml += '<div class="photo-sub-row">';
         for (var i = 1; i < photos.length; i++) {
-          photoHtml += '<div class="photo-sub"><img src="' + escapeAttr(cldResize(photos[i], 300, true)) + '" alt="" loading="lazy" onclick="openPhotoModal(' + albumIndex + ', ' + i + ')"></div>';
+          var subThumb = cldResize(photos[i], subW, true);
+          thumbSrcs[i] = subThumb;
+          photoHtml += '<div class="photo-sub"><img src="' + escapeAttr(subThumb) + '" alt="" loading="lazy" onclick="openPhotoModal(' + albumIndex + ', ' + i + ')" ontouchstart="preloadFullPhoto(' + albumIndex + ', ' + i + ')" onmousedown="preloadFullPhoto(' + albumIndex + ', ' + i + ')"></div>';
         }
         photoHtml += '</div>';
       }
       photoHtml += '</div>';
     }
+    window.__albumThumbStore[albumIndex] = thumbSrcs;
 
     var flowerTagsHtml = (album.flowers || []).map(function (f, fi) {
       return '<span class="flower-tag" data-flower-index="' + fi + '" onclick="toggleFlowerPhoto(' + albumIndex + ', ' + fi + ', this)">' + escapeHtml(f) + '</span>';
@@ -632,6 +646,18 @@
 
   var modalAlbumIndex = 0;
   var modalPhotoIndex = 0;
+  var preloadCache = {};
+
+  function preloadFullPhoto(albumIndex, photoIndex) {
+    var photos = (window.__albumPhotosStore && window.__albumPhotosStore[albumIndex]) || [];
+    var url = photos[photoIndex];
+    if (!url) return;
+    var fullSrc = cldResize(url, 1000);
+    if (preloadCache[fullSrc]) return;
+    var img = new Image();
+    img.src = fullSrc;
+    preloadCache[fullSrc] = img;
+  }
 
   function openPhotoModal(albumIndex, photoIndex) {
     modalAlbumIndex = albumIndex;
@@ -649,7 +675,29 @@
 
   function updatePhotoModal_() {
     var photos = (window.__albumPhotosStore && window.__albumPhotosStore[modalAlbumIndex]) || [];
-    document.getElementById('photoModalImg').src = cldResize(photos[modalPhotoIndex], 1200) || '';
+    var thumbs = (window.__albumThumbStore && window.__albumThumbStore[modalAlbumIndex]) || [];
+    var modalImg = document.getElementById('photoModalImg');
+    var fullSrc = cldResize(photos[modalPhotoIndex], 1000) || '';
+
+    // すでに先読み済みなら即フル解像度、まだなら手持ちのサムネをぼかして即表示→裏で読み込み
+    if (preloadCache[fullSrc]) {
+      modalImg.classList.remove('is-loading');
+      modalImg.src = fullSrc;
+    } else {
+      modalImg.classList.add('is-loading');
+      modalImg.src = thumbs[modalPhotoIndex] || fullSrc;
+      var requestedAlbum = modalAlbumIndex;
+      var requestedPhoto = modalPhotoIndex;
+      var loader = new Image();
+      loader.onload = function () {
+        preloadCache[fullSrc] = loader;
+        if (modalAlbumIndex === requestedAlbum && modalPhotoIndex === requestedPhoto) {
+          modalImg.src = fullSrc;
+          modalImg.classList.remove('is-loading');
+        }
+      };
+      loader.src = fullSrc;
+    }
 
     var showNav = photos.length > 1;
     document.querySelector('#photoModal .modal-prev').style.display = showNav ? 'flex' : 'none';

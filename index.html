@@ -158,6 +158,7 @@
     border-radius: 4px; padding: 22px 18px; position: relative; overflow: hidden;
   }
   .teaser-card.is-confirmed{ background: #ffffff; border: 1px solid var(--beige-line); }
+  .teaser-card.is-tentative{ background: #ffffff; border: 1px dashed var(--terracotta); }
   .teaser-card.is-teaser{ background: var(--beige); border: 1px solid transparent; }
 
   .teaser-vol{ font-size: 10px; letter-spacing: 0.15em; color: var(--text-soft); margin-bottom: 10px; }
@@ -168,7 +169,11 @@
   }
   .teaser-status{ font-size: 9.5px; letter-spacing: 0.12em; padding: 4px 10px; border-radius: 2px; display: inline-block; }
   .teaser-status.confirmed{ background: var(--olive); color: #ffffff; }
+  .teaser-status.tentative{ background: transparent; border: 1px dashed var(--terracotta); color: var(--terracotta); }
   .teaser-status.teaser{ background: transparent; border: 1px solid var(--terracotta); color: var(--terracotta); }
+  .teaser-tentative-note{
+    margin-top: 14px; font-size: 10px; color: var(--text-soft); font-weight: 300; line-height: 1.7;
+  }
 
   .teaser-heart{
     position: absolute; top: 14px; right: 14px; font-size: 17px;
@@ -478,11 +483,19 @@
 
   function buildTeaserCard(item, interestedVols) {
     var isConfirmed = item.status === 'confirmed';
-    var statusLabel = isConfirmed
-      ? (item.scheduleDate ? '日程確定：' + escapeHtml(item.scheduleDate) : '日程確定')
-      : 'テーマ先行公開';
-    var cardClass = isConfirmed ? 'is-confirmed' : 'is-teaser';
-    var statusClass = isConfirmed ? 'confirmed' : 'teaser';
+    var isTentative = item.status === 'tentative';
+
+    var cardClass = isConfirmed ? 'is-confirmed' : (isTentative ? 'is-tentative' : 'is-teaser');
+    var statusClass = isConfirmed ? 'confirmed' : (isTentative ? 'tentative' : 'teaser');
+    var statusLabel;
+    if (isConfirmed) {
+      statusLabel = item.scheduleDate ? '日程確定：' + escapeHtml(item.scheduleDate) : '日程確定';
+    } else if (isTentative) {
+      statusLabel = item.scheduleDate ? '仮日程：' + escapeHtml(item.scheduleDate) : '仮日程';
+    } else {
+      statusLabel = 'テーマ先行公開';
+    }
+
     var isActive = interestedVols.indexOf(item.volNumber) !== -1;
 
     var heartHtml = isConfirmed
@@ -494,6 +507,8 @@
       reserveHtml = item.reservationUrl
         ? '<a class="teaser-reserve-btn" href="' + escapeAttr(item.reservationUrl) + '" target="_blank" rel="noopener">予約する</a>'
         : '<span class="teaser-priority-tag">パス会員先行案内中</span>';
+    } else if (isTentative) {
+      reserveHtml = '<div class="teaser-tentative-note">正式決定後、公式LINEでご案内します</div>';
     }
 
     return (

@@ -160,8 +160,9 @@
   .photo-main{
     width: 100%; overflow: hidden; border-radius: 4px; background: #eee;
     border: 1px solid var(--beige-line); margin-bottom: 8px;
+    aspect-ratio: 4 / 3;
   }
-  .photo-main img{ display: block; width: 100%; height: auto; object-fit: cover; }
+  .photo-main img{ display: block; width: 100%; height: 100%; object-fit: cover; }
   .photo-sub-row{ display: flex; gap: 8px; }
   .photo-sub{
     flex: 1; overflow: hidden; border-radius: 4px; background: #eee;
@@ -591,7 +592,7 @@
       html += '<button class="archive-more-btn" onclick="renderArchiveBatch_()">もっと見る</button>';
     } else {
       html += '<div class="archive-more">フラワープレミアムパス会員になっていただくと、あなたの作品もこのように記録として残ります。</div>';
-      html += '<a class="archive-pass-link" href="#pass">気に入ったら、フラワープレミアムパスもご覧ください &darr;</a>';
+      html += '<a class="archive-pass-link" href="#pass">フラワープレミアムパスの詳細はこちら &darr;</a>';
     }
 
     window.__archiveShownCount = nextCount;
